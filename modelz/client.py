@@ -3,12 +3,14 @@ from typing import Any, Generator
 import json
 import logging
 from abc import ABC, abstractmethod
+from http import HTTPStatus
 
 import httpx
 import msgpack  # type: ignore
 
 
 logger = logging.getLogger(__name__)
+TIMEOUT = httpx.Timeout(5, read=30, write=30)
 
 
 class Serde(ABC):
@@ -58,15 +60,16 @@ class ModelzAuth(httpx.Auth):
 
 class InferenceResponse:
     def __init__(self, resp: httpx.Response, serde: Serde):
-        if resp.status_code != 200:
+        if resp.status_code != HTTPStatus.OK:
             logger.warn("err[%d]: %s", resp.status_code, resp.text)
             raise ValueError(f"Inference err: {resp.text}")
         self.resp = resp
         self.serde = serde
         self._data = None
 
-    def decode(self) -> Any:
+    def _decode(self) -> Any:
         self._data = self.serde.decode(self.resp.content)
+        return self._data
 
     def save_as_img(self, file: str):
         with open(file, "wb") as f:
@@ -74,21 +77,28 @@ class InferenceResponse:
 
     @property
     def data(self) -> Any:
-        return self.decode()
+        return self._decode()
 
 
 class ModelzClient:
     URL = "https://api.modelz.ai/"
 
-    def __init__(self, token: str, project: str, serde: str = "json") -> None:
+    def __init__(
+        self, token: str, project: str, host: str | None = None, serde: str = "json"
+    ) -> None:
         auth = ModelzAuth(token)
         self.project = project
-        self.client = httpx.Client(auth=auth, base_url=f"{self.URL}/{project}/")
+        self.client = httpx.Client(auth=auth, base_url=host if host else self.URL)
         self.serde: Serde = SERDE[serde.lower()]()
 
-    def query(self, params: Any, timeout: float | None = None) -> InferenceResponse:
+    def query(
+        self, params: Any, timeout: float | httpx.Timeout = TIMEOUT
+    ) -> InferenceResponse:
         resp = self.client.post(
-            "inference", content=self.serde.encode(params), timeout=timeout
+            "/api/v1/inference/",
+            content=self.serde.encode(params),
+            params={"project": self.project},
+            timeout=timeout,
         )
 
         return InferenceResponse(resp, self.serde)
