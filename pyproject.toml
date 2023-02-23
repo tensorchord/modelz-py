@@ -27,7 +27,14 @@ build-backend = "pdm.pep517.api"
 modelz = "modelz.cmd:main"
 
 [tool.pdm]
-
+[tool.pdm.dev-dependencies]
+lint = [
+    "ruff>=0.0.252",
+    "black>=23.1.0",
+]
+test = [
+    "pytest>=7.2.1",
+]
 
 [tool.ruff]
 line-length = 88
