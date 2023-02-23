@@ -27,6 +27,10 @@ build-backend = "pdm.pep517.api"
 modelz = "modelz.cmd:main"
 
 [tool.pdm]
+[tool.pdm.scripts]
+black = "black --check modelz"
+ruff = "ruff check ."
+lint = {composite = ["black", "ruff"]}
 [tool.pdm.dev-dependencies]
 lint = [
     "ruff>=0.0.252",
