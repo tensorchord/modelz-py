@@ -3,10 +3,12 @@ PY_SOURCE=modelz
 .DEFAULT_GOAL:=build
 
 build:
-	pdm build
+	@pdm build
 
 lint:
-	ruff check .
+	@black --check --diff ${PY_SOURCE}
+	@ruff check .
 
 format:
-	black ${PY_SOURCE}
+	@black ${PY_SOURCE}
+	@ruff check --fix .
