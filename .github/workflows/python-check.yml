@@ -38,7 +38,7 @@ jobs:
         pdm sync -d -G lint
     - name: Lint
       run: |
-        make lint
+        pdm run lint
 
   test:
     runs-on: ${{ matrix.os }}
