@@ -62,7 +62,7 @@ class InferenceResponse:
     def __init__(self, resp: httpx.Response, serde: Serde):
         if resp.status_code != HTTPStatus.OK:
             logger.warn("err[%d]: %s", resp.status_code, resp.text)
-            raise ValueError(f"Inference err: {resp.text}")
+            raise ValueError(f"inference err: {resp.text}")
         self.resp = resp
         self.serde = serde
         self._data = None
@@ -91,14 +91,23 @@ class ModelzClient:
         self.client = httpx.Client(auth=auth, base_url=host if host else self.URL)
         self.serde: Serde = SERDE[serde.lower()]()
 
-    def query(
+    def inference(
         self, params: Any, timeout: float | httpx.Timeout = TIMEOUT
     ) -> InferenceResponse:
         resp = self.client.post(
-            "/api/v1/inference/",
+            f"/api/v1/mosec/{self.project}/inference",
             content=self.serde.encode(params),
-            params={"project": self.project},
             timeout=timeout,
         )
 
         return InferenceResponse(resp, self.serde)
+
+    def metrics(self, timeout: float | httpx.Timeout = TIMEOUT) -> str:
+        resp = self.client.get(
+            f"/api/v1/mosec/{self.project}/metrics",
+            timeout=timeout,
+        )
+        if resp.status_code != HTTPStatus.OK:
+            logger.warn("err[%d]: %s", resp.status_code, resp.text)
+            raise RuntimeError(f"fetch metrics error: {resp.text}")
+        return resp.text
