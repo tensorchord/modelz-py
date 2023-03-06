@@ -8,9 +8,12 @@ from http import HTTPStatus
 import httpx
 import msgpack  # type: ignore
 
+from .env import EnvConfig
 
-logger = logging.getLogger(__name__)
+
 TIMEOUT = httpx.Timeout(5, read=30, write=30)
+logger = logging.getLogger(__name__)
+config = EnvConfig()
 
 
 class Serde(ABC):
@@ -48,13 +51,15 @@ SERDE = {
 
 
 class ModelzAuth(httpx.Auth):
-    def __init__(self, token) -> None:
-        self.token = token
+    def __init__(self, key: str | None = None) -> None:
+        self.key: str = key if key else config.api_key
+        if not self.key:
+            raise RuntimeError("cannot find the API key")
 
     def auth_flow(
         self, request: httpx.Request
     ) -> Generator[httpx.Request, httpx.Response, None]:
-        request.headers["X-API-Key"] = self.token
+        request.headers["X-API-Key"] = self.key
         yield request
 
 
@@ -81,19 +86,27 @@ class InferenceResponse:
 
 
 class ModelzClient:
-    URL = "https://api.modelz.ai/"
-
     def __init__(
-        self, token: str, project: str, host: str | None = None, serde: str = "json"
+        self, key: str, project: str, host: str | None = None, serde: str = "json"
     ) -> None:
-        auth = ModelzAuth(token)
+        """Create a Modelz Client.
+
+        Args:
+            key: API key
+            project: Project ID
+            host: Modelz host address
+            serde: serialize/deserialize method, choose from ("json", "msg")
+        """
+        self.host = host if host else config.host
+        auth = ModelzAuth(key)
         self.project = project
-        self.client = httpx.Client(auth=auth, base_url=host if host else self.URL)
+        self.client = httpx.Client(auth=auth, base_url=self.host)
         self.serde: Serde = SERDE[serde.lower()]()
 
     def inference(
         self, params: Any, timeout: float | httpx.Timeout = TIMEOUT
     ) -> InferenceResponse:
+        """Get the inference result."""
         resp = self.client.post(
             f"/api/v1/mosec/{self.project}/inference",
             content=self.serde.encode(params),
@@ -103,6 +116,7 @@ class ModelzClient:
         return InferenceResponse(resp, self.serde)
 
     def metrics(self, timeout: float | httpx.Timeout = TIMEOUT) -> str:
+        """Get deployment metrics."""
         resp = self.client.get(
             f"/api/v1/mosec/{self.project}/metrics",
             timeout=timeout,
