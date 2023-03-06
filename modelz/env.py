@@ -4,6 +4,7 @@ import os
 
 PREFIX: str = "MODELZ_"
 
+
 class EnvConfig:
     def __init__(self) -> None:
         self.api_key: str
@@ -14,4 +15,3 @@ class EnvConfig:
         for key in ("api_key", "host"):
             val = os.environ.get(f"{PREFIX}{key.upper()}")
             setattr(self, key, val)
-
