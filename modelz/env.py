@@ -8,7 +8,7 @@ PREFIX: str = "MODELZ_"
 class EnvConfig:
     def __init__(self) -> None:
         self.api_key: str
-        self.host: str = "https://api.modelz.ai/"
+        self.host: str = "https://cloud.modelz.ai/"
         self.update_from_env()
 
     def update_from_env(self):
