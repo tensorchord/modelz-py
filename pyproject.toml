@@ -1,6 +1,6 @@
 [project]
 name = "modelz-py"
-version = "0.1.0"
+dynamic = ["version"]
 description = "machine learning models"
 authors = [
     {name = "TensorChord", email = "modelz-support@tensorchord.ai"},
@@ -27,6 +27,10 @@ build-backend = "pdm.pep517.api"
 modelz = "modelz.cmd:main"
 
 [tool.pdm]
+[tool.pdm.version]
+source = "scm"
+write_to = "modelz/__version__.py"
+write_template = "__version__ = '{}'"
 [tool.pdm.scripts]
 black = "black --check modelz"
 ruff = "ruff check ."
