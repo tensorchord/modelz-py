@@ -40,7 +40,7 @@ class InferenceResponse:
         self._data = self.serde.decode(self.resp.content)
         return self._data
 
-    def save_in_file(self, file: str):
+    def save_to_file(self, file: str):
         with open(file, "wb") as f:
             f.write(self.data)
 
