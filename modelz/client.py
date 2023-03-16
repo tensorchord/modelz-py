@@ -1,53 +1,17 @@
 from __future__ import annotations
 from typing import Any, Generator
-import json
 import logging
-from abc import ABC, abstractmethod
 from http import HTTPStatus
 
 import httpx
-import msgpack  # type: ignore
 
 from .env import EnvConfig
+from .serde import Serde, SerdeEnum
 
 
 TIMEOUT = httpx.Timeout(5, read=30, write=30)
 logger = logging.getLogger(__name__)
 config = EnvConfig()
-
-
-class Serde(ABC):
-    """Serilization and deserilization."""
-
-    @abstractmethod
-    def encode(self, data: Any) -> str | bytes:
-        raise NotImplementedError
-
-    @abstractmethod
-    def decode(self, data: str | bytes) -> Any:
-        raise NotImplementedError
-
-
-class JSONSerde(Serde):
-    def encode(self, data: Any) -> str | bytes:
-        return json.dumps(data)
-
-    def decode(self, data: str | bytes) -> Any:
-        return json.loads(data)
-
-
-class MsgPackSerde(Serde):
-    def encode(self, data: Any) -> str | bytes:
-        return msgpack.packb(data)
-
-    def decode(self, data: str | bytes) -> Any:
-        return msgpack.unpackb(data)
-
-
-SERDE = {
-    "json": JSONSerde,
-    "msgpack": MsgPackSerde,
-}
 
 
 class ModelzAuth(httpx.Auth):
@@ -76,7 +40,7 @@ class InferenceResponse:
         self._data = self.serde.decode(self.resp.content)
         return self._data
 
-    def save_as_img(self, file: str):
+    def save_in_file(self, file: str):
         with open(file, "wb") as f:
             f.write(self.data)
 
@@ -95,13 +59,13 @@ class ModelzClient:
             key: API key
             project: Project ID
             host: Modelz host address
-            serde: serialize/deserialize method, choose from ("json", "msg")
+            serde: serialize/deserialize method, choose from ("json", "msg", "raw")
         """
         self.host = host if host else config.host
         auth = ModelzAuth(key)
         self.project = project
         self.client = httpx.Client(auth=auth, base_url=self.host)
-        self.serde: Serde = SERDE[serde.lower()]()
+        self.serde: Serde = SerdeEnum[serde.lower()].value()
 
     def inference(
         self, params: Any, timeout: float | httpx.Timeout = TIMEOUT
