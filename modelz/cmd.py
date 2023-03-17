@@ -17,7 +17,7 @@ cli = typer.Typer(
 @cli.command(no_args_is_help=True)
 def inference(
     project: str,
-    params: List[str] = [],
+    params: Optional[List[str]] = None,
     read_stdin: bool = False,
     write_file: Optional[str] = None,
     key: Optional[str] = None,
@@ -47,7 +47,9 @@ def inference(
 
         output: output target, choose from [console|file]
     """
-    data = dict(pair.split("=", 1) for pair in params)
+    data = None
+    if params:
+        data = dict(pair.split("=", 1) for pair in params)
     if read_stdin:
         content = sys.stdin.read()
         if data:

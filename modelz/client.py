@@ -52,7 +52,11 @@ class InferenceResponse:
 
 class ModelzClient:
     def __init__(
-        self, project: str, key: str | None, host: str | None = None, serde: str = "json"
+        self,
+        project: str,
+        key: str | None,
+        host: str | None = None,
+        serde: str = "json",
     ) -> None:
         """Create a Modelz Client.
 
