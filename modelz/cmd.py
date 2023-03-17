@@ -1,4 +1,5 @@
 from typing import Optional, List
+import sys
 
 import typer
 
@@ -16,8 +17,8 @@ cli = typer.Typer(
 @cli.command(no_args_is_help=True)
 def inference(
     project: str,
-    params: List[str] = None,
-    read_file: Optional[str] = None,
+    params: List[str] = [],
+    read_stdin: bool = False,
     write_file: Optional[str] = None,
     key: Optional[str] = None,
     serde: str = "json",
@@ -35,7 +36,7 @@ def inference(
         params: request params list in the "key=value" format
             i.e. `--params prompt='cute cat' --params temperature=0.75"`
 
-        read_file: read file as request body. If params are also provided,
+        read_stdin: read stdin as request body. If params are also provided,
             this will be append as the value of "file" in the request body.
 
         write_file: write response to the file
@@ -47,15 +48,15 @@ def inference(
         output: output target, choose from [console|file]
     """
     data = dict(pair.split("=", 1) for pair in params)
-    if read_file:
-        with open(read_file, "rb") as f:
-            content = f.read()
+    if read_stdin:
+        content = sys.stdin.read()
         if data:
             data["file"] = content
         else:
             data = content
 
     client = ModelzClient(key=key, project=project, serde=serde)
+    print("=>", data)
     resp = client.inference(params=data)
 
     if not write_file:
