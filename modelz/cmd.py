@@ -56,7 +56,6 @@ def inference(
             data = content
 
     client = ModelzClient(key=key, project=project, serde=serde)
-    print("=>", data)
     resp = client.inference(params=data)
 
     if not write_file:
