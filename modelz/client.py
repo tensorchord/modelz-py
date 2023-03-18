@@ -2,6 +2,7 @@ from __future__ import annotations
 from typing import Any, Generator
 import logging
 from http import HTTPStatus
+from urllib.parse import urljoin
 
 import httpx
 
@@ -51,20 +52,24 @@ class InferenceResponse:
 
 class ModelzClient:
     def __init__(
-        self, key: str, project: str, host: str | None = None, serde: str = "json"
+        self,
+        project: str,
+        key: str | None,
+        host: str | None = None,
+        serde: str = "json",
     ) -> None:
         """Create a Modelz Client.
 
         Args:
-            key: API key
             project: Project ID
+            key: API key
             host: Modelz host address
             serde: serialize/deserialize method, choose from ("json", "msg", "raw")
         """
         self.host = host if host else config.host
         auth = ModelzAuth(key)
         self.project = project
-        self.client = httpx.Client(auth=auth, base_url=self.host)
+        self.client = httpx.Client(auth=auth)
         self.serde: Serde = SerdeEnum[serde.lower()].value()
 
     def inference(
@@ -72,7 +77,7 @@ class ModelzClient:
     ) -> InferenceResponse:
         """Get the inference result."""
         resp = self.client.post(
-            f"/api/v1/mosec/{self.project}/inference",
+            urljoin(self.host.format(self.project), "/inference"),
             content=self.serde.encode(params),
             timeout=timeout,
         )
@@ -82,7 +87,7 @@ class ModelzClient:
     def metrics(self, timeout: float | httpx.Timeout = TIMEOUT) -> str:
         """Get deployment metrics."""
         resp = self.client.get(
-            f"/api/v1/mosec/{self.project}/metrics",
+            urljoin(self.host.format(self.project), "/metrics"),
             timeout=timeout,
         )
         if resp.status_code != HTTPStatus.OK:

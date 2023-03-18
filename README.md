@@ -7,5 +7,11 @@ pip install modelz-py
 ## CLI
 
 ```shell
-modelz inference $PROJECT --params prompt="a cut cat"
+modelz --help
+```
+
+### Stable Diffusion
+
+```shell
+echo "cute cat" | modelz inference $PROJECT --serde msgpack --write-file cat.jpg --read-stdin
 ```
