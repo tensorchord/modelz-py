@@ -10,7 +10,7 @@ from .env import EnvConfig
 from .serde import Serde, SerdeEnum
 
 
-TIMEOUT = httpx.Timeout(5, read=30, write=30)
+TIMEOUT = httpx.Timeout(5, read=300, write=300)
 logger = logging.getLogger(__name__)
 config = EnvConfig()
 
