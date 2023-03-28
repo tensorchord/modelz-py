@@ -36,8 +36,7 @@ def inference(
         params: request params list in the "key=value" format
             i.e. `--params prompt='cute cat' --params temperature=0.75"`
 
-        read_stdin: read stdin as request body. If params are also provided,
-            this will be append as the value of "file" in the request body.
+        read_stdin: read stdin as request body
 
         write_file: write response to the file
 
@@ -51,11 +50,8 @@ def inference(
     if params:
         data = dict(pair.split("=", 1) for pair in params)
     if read_stdin:
-        content = sys.stdin.read()
-        if data:
-            data["file"] = content
-        else:
-            data = content
+        content = sys.stdin.buffer.read()
+        data = content
 
     client = ModelzClient(key=key, project=project, serde=serde)
     resp = client.inference(params=data)
