@@ -1,17 +1,17 @@
 from __future__ import annotations
 from typing import Any, Generator
-import logging
 from http import HTTPStatus
 from urllib.parse import urljoin
 
 import httpx
+from rich.console import Console
 
 from .env import EnvConfig
-from .serde import Serde, SerdeEnum
+from .serde import Serde, SerdeEnum, TextSerde
 
 
 TIMEOUT = httpx.Timeout(5, read=300, write=300)
-logger = logging.getLogger(__name__)
+console = Console()
 config = EnvConfig()
 
 
@@ -28,18 +28,15 @@ class ModelzAuth(httpx.Auth):
         yield request
 
 
-class InferenceResponse:
-    def __init__(self, resp: httpx.Response, serde: Serde):
+class ModelzResponse:
+    def __init__(self, resp: httpx.Response, serde: Serde = TextSerde()):
+        """Modelz internal response."""
         if resp.status_code != HTTPStatus.OK:
-            logger.warn("err[%d]: %s", resp.status_code, resp.text)
-            raise ValueError(f"inference err: {resp.text}")
+            console.print(f"[bold red]err[{resp.status_code}][/bold red]: {resp.text}")
+            raise ValueError(f"inference err with code {resp.status_code}")
         self.resp = resp
         self.serde = serde
         self._data = None
-
-    def _decode(self) -> Any:
-        self._data = self.serde.decode(self.resp.content)
-        return self._data
 
     def save_to_file(self, file: str):
         with open(file, "wb") as f:
@@ -47,50 +44,88 @@ class InferenceResponse:
 
     @property
     def data(self) -> Any:
-        return self._decode()
+        if not self._data:
+            self._data = self.serde.decode(self.resp.content)
+        return self._data
+    
+    def show(self):
+        console.print(self.data)
 
 
 class ModelzClient:
     def __init__(
         self,
-        project: str,
-        key: str | None,
+        deployment: str | None = None,
+        key: str | None = None,
         host: str | None = None,
-        serde: str = "json",
+        timeout: float | httpx.Timeout = TIMEOUT,
     ) -> None:
         """Create a Modelz Client.
 
         Args:
-            project: Project ID
+            deployment: deployment ID
             key: API key
             host: Modelz host address
-            serde: serialize/deserialize method, choose from ("json", "msg", "raw")
+            timeout: request timeout (second)
         """
         self.host = host if host else config.host
         auth = ModelzAuth(key)
-        self.project = project
+        self.deployment = deployment
         self.client = httpx.Client(auth=auth)
-        self.serde: Serde = SerdeEnum[serde.lower()].value()
+        self.serde: Serde
+        self.timeout = timeout
 
     def inference(
-        self, params: Any, timeout: float | httpx.Timeout = TIMEOUT
-    ) -> InferenceResponse:
-        """Get the inference result."""
-        resp = self.client.post(
-            urljoin(self.host.format(self.project), "/inference"),
-            content=self.serde.encode(params),
-            timeout=timeout,
-        )
+        self,
+        params: Any,
+        deployment: str | None = None,
+        serde: str = "json",
+    ) -> ModelzResponse:
+        """Get the inference result.
 
-        return InferenceResponse(resp, self.serde)
+        Args:
+            params: request params, will be serialized by `serde`
+            deployment: deployment ID
+            serde: serialize/deserialize method, choose from ("json", "msg", "raw")
+        """
+        deploy = deployment if deployment else self.deployment
+        assert deploy, "deployment is required"
+        self.serde = SerdeEnum[serde.lower()].value()
 
-    def metrics(self, timeout: float | httpx.Timeout = TIMEOUT) -> str:
-        """Get deployment metrics."""
-        resp = self.client.get(
-            urljoin(self.host.format(self.project), "/metrics"),
-            timeout=timeout,
-        )
-        if resp.status_code != HTTPStatus.OK:
-            logger.warn("err[%d]: %s", resp.status_code, resp.text)
-            raise RuntimeError(f"fetch metrics error: {resp.text}")
-        return resp.text
+        with console.status(f"[bold green]Modelz {deploy} inference..."):
+            resp = self.client.post(
+                urljoin(self.host.format(deploy), "/inference"),
+                content=self.serde.encode(params),
+                timeout=self.timeout,
+            )
+
+        return ModelzResponse(resp, self.serde)
+
+    def metrics(self, deployment: str | None = None) -> ModelzResponse:
+        """Get deployment metrics.
+
+        Args:
+            deployment: deployment ID
+        """
+        deploy = deployment if deployment else self.deployment
+        assert deploy, "deployment is required"
+
+        with console.status(f"[bold green]Modelz {deploy} metrics..."):
+            resp = self.client.get(
+                urljoin(self.host.format(deploy), "/metrics"),
+                timeout=self.timeout,
+            )
+
+        return ModelzResponse(resp)
+
+    def build(self, repo: str):
+        """Build a Docker image and push it to the registry."""
+        with console.status(f"[bold green]Modelz build {repo}..."):
+            resp = self.client.post(
+                urljoin(self.host.format("api"), "/build"),
+                timeout=self.timeout,
+                
+            )
+
+        ModelzResponse(resp)
+        console.print(f"created the build job for repo [bold cyan]{repo}[/bold cyan]")
