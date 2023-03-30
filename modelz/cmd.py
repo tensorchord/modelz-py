@@ -1,23 +1,18 @@
-from typing import Optional, List
+from typing import Optional, Dict
 import sys
 
-import typer
+from rich.console import Console
 
-from .client import ModelzClient
-
-
-cli = typer.Typer(
-    name="modelz",
-    no_args_is_help=True,
-    pretty_exceptions_short=True,
-    pretty_exceptions_show_locals=False,
-)
+from modelz.client import ModelzClient
+from modelz.args import parse_arguments
 
 
-@cli.command(no_args_is_help=True)
+console = Console()
+
+
 def inference(
-    project: str,
-    params: Optional[List[str]] = None,
+    deployment: str,
+    params: Optional[Dict[str, str]] = None,
     read_stdin: bool = False,
     write_file: Optional[str] = None,
     key: Optional[str] = None,
@@ -26,59 +21,59 @@ def inference(
     """Model inference.
 
     Example:
-
-        `modelz inference $PROJECT --param prompt="cut cat"`
+        `modelz inference -d $DEPLOYMENT prompt='cut cat'`
 
     Args:
-
-        project: project id
-
-        params: request params list in the "key=value" format
-            i.e. `--params prompt='cute cat' --params temperature=0.75"`
-
+        deployment: deployment id
+        params: request params dict
         read_stdin: read stdin as request body
-
         write_file: write response to the file
-
         key: API key, will try to read from env `MODELZ_API_KEY` if not provided
-
         serde: serilize/deserilize method, choose from [json|msgpack|raw]
-
         output: output target, choose from [console|file]
     """
-    data = None
-    if params:
-        data = dict(pair.split("=", 1) for pair in params)
+    data = params
     if read_stdin:
-        content = sys.stdin.buffer.read()
-        data = content
+        # override req data
+        data = sys.stdin.buffer.read()
 
-    client = ModelzClient(key=key, project=project, serde=serde)
-    resp = client.inference(params=data)
+    client = ModelzClient(key=key, deployment=deployment)
+    resp = client.inference(params=data, serde=serde)
 
     if not write_file:
-        print(resp.data)
+        console.print(resp.data)
     else:
         resp.save_to_file(write_file)
-        print(f"result has been written in {write_file}")
+        console.print(f"result has been written in [bold cyan]{write_file}[/bold cyan]")
 
 
-@cli.command(no_args_is_help=True)
-def metrics(project: str, key: Optional[str] = None):
+def metrics(deployment: str, key: Optional[str] = None):
     """Model service metrics.
 
     Usage:
-        `modelz metrics $PROJECT`
+        `modelz metrics -d $DEPLOYMENT`
 
     Args:
-
         key: API key, will try to read from env `MODELZ_API_KEY` if not provided
-
-        project: project id
+        deployment: deployment id
     """
-    client = ModelzClient(key=key, project=project)
-    print(client.metrics())
+    client = ModelzClient(key=key, deployment=deployment)
+    client.metrics().show()
+
+
+def build(repo: str, key: Optional[str] = None):
+    """Build the docker image from a GitHub repo"""
+    pass
 
 
 def main():
-    cli()
+    """CLI entrypoint."""
+    command, args, params = parse_arguments()
+    if command.startswith("inf"):
+        inference(**args, params=params)
+    elif command.startswith("metrics"):
+        metrics(**args)
+    elif command.startswith("build"):
+        build(**args)
+    else:
+        raise NotImplementedError(command)
