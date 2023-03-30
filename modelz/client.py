@@ -14,6 +14,7 @@ TIMEOUT = httpx.Timeout(5, read=300, write=300)
 console = Console()
 config = EnvConfig()
 DEFAULT_RESP_SERDE = TextSerde()
+DEFAULT_RETRY = 3
 
 
 class ModelzAuth(httpx.Auth):
@@ -70,9 +71,10 @@ class ModelzClient:
             timeout: request timeout (second)
         """
         self.host = host if host else config.host
-        auth = ModelzAuth(key)
         self.deployment = deployment
-        self.client = httpx.Client(auth=auth)
+        auth = ModelzAuth(key)
+        transport = httpx.HTTPTransport(retries=DEFAULT_RETRY)
+        self.client = httpx.Client(auth=auth, transport=transport)
         self.serde: Serde
         self.timeout = timeout
 
