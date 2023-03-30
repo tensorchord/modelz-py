@@ -9,6 +9,7 @@ from modelz.args import parse_arguments
 
 console = Console()
 
+
 def inference(
     deployment: str,
     params: Optional[Dict[str, str]] = None,

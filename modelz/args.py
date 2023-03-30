@@ -15,7 +15,10 @@ def parse_arguments():
     subparser.add_parser("build")
 
     # inference
-    inf_parser.add_argument("--key", help="API key for Modelz")
+    inf_parser.add_argument(
+        "--key",
+        help="API key for Modelz, will read from env $MODELZ_API_KEY if not provided",
+    )
     inf_parser.add_argument("-d", "--deployment", help="deployment key", required=True)
     inf_parser.add_argument(
         "--serde",
@@ -31,7 +34,10 @@ def parse_arguments():
     )
 
     # metrics
-    metrics_parser.add_argument("--key", help="API key for Modelz")
+    metrics_parser.add_argument(
+        "--key",
+        help="API key for Modelz, will read from env $MODELZ_API_KEY if not provided",
+    )
     metrics_parser.add_argument(
         "-d", "--deployment", help="deployment key", required=True
     )

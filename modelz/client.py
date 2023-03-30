@@ -13,6 +13,7 @@ from .serde import Serde, SerdeEnum, TextSerde
 TIMEOUT = httpx.Timeout(5, read=300, write=300)
 console = Console()
 config = EnvConfig()
+DEFAULT_RESP_SERDE = TextSerde()
 
 
 class ModelzAuth(httpx.Auth):
@@ -29,7 +30,7 @@ class ModelzAuth(httpx.Auth):
 
 
 class ModelzResponse:
-    def __init__(self, resp: httpx.Response, serde: Serde = TextSerde()):
+    def __init__(self, resp: httpx.Response, serde: Serde = DEFAULT_RESP_SERDE):
         """Modelz internal response."""
         if resp.status_code != HTTPStatus.OK:
             console.print(f"[bold red]err[{resp.status_code}][/bold red]: {resp.text}")
@@ -47,7 +48,7 @@ class ModelzResponse:
         if not self._data:
             self._data = self.serde.decode(self.resp.content)
         return self._data
-    
+
     def show(self):
         console.print(self.data)
 
@@ -124,7 +125,6 @@ class ModelzClient:
             resp = self.client.post(
                 urljoin(self.host.format("api"), "/build"),
                 timeout=self.timeout,
-                
             )
 
         ModelzResponse(resp)

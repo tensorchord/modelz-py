@@ -46,7 +46,7 @@ class RawSerde(Serde):
 class TextSerde(Serde):
     def encode(self, data: Any) -> str | bytes:
         return data.encode("utf-8")
-    
+
     def decode(self, data: str | bytes) -> Any:
         return data.decode("utf-8")
 
