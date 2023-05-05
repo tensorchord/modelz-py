@@ -21,7 +21,7 @@ publish:
 	@envchain 'pdm' pdm publish
 
 install:
-	pdm install
+	# pdm install
 
 patch:
 	bump2version patch
