@@ -5,7 +5,6 @@ from urllib.parse import urljoin
 
 import aiohttp
 
-# from aiohttp import hdrs
 from rich.console import Console
 
 from .env import EnvConfig
@@ -19,27 +18,12 @@ DEFAULT_RESP_SERDE = TextSerde()
 DEFAULT_RETRY = 3
 
 
-# class ModelzAuth:
-#     def __init__(self, key: str | None = None) -> None:
-#         self.key: str = key if key else config.api_key
-#         if not self.key:
-#             raise RuntimeError("cannot find the API key")
-
-#     async def auth_request(self, request: aiohttp.ClientRequest):
-#         request.headers[hdrs.X_API_KEY] = self.key
-#         return request
-
-
 class ModelzAuth:
     def __init__(self, key: str | None = None) -> None:
         config = EnvConfig()
         self.key: str = key if key else config.api_key
         if not self.key:
             raise RuntimeError("cannot find the API key")
-
-    # async def auth_request(self, request: aiohttp.ClientRequest):
-    #     request.headers["X-API-Key"] = self.key
-    #     return request
 
     def get_headers(self) -> dict:
         return {"X-API-Key": self.key}
