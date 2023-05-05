@@ -14,7 +14,6 @@ from .serde import Serde, SerdeEnum, TextSerde
 
 TIMEOUT = 300
 console = Console()
-config = EnvConfig()
 DEFAULT_RESP_SERDE = TextSerde()
 DEFAULT_RETRY = 3
 
@@ -32,6 +31,7 @@ DEFAULT_RETRY = 3
 
 class ModelzAuth:
     def __init__(self, key: str | None = None) -> None:
+        config = EnvConfig()
         self.key: str = key if key else config.api_key
         if not self.key:
             raise RuntimeError("cannot find the API key")
