@@ -1,8 +1,8 @@
-# Modelz Python SDK
+# Modelz Python SDK and CLI
 
 [modelz-py](https://github.com/tensorchord/modelz-py) with aiohttp
 
-- [Modelz Python SDK](#modelz-python-sdk)
+- [Modelz Python SDK and CLI](#modelz-python-sdk-and-cli)
   - [Installation](#installation)
     - [pipx](#pipx)
     - [pip](#pip)
