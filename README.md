@@ -3,7 +3,7 @@
 [modelz-py](https://github.com/tensorchord/modelz-py) with aiohttp
 
 Basically, [aioclient.py](modelz/aioclient.py) implements the async / aiohttp versions of `Modelz*` classes,  
-and [client.py](modelz/client.py) wraps around it with `asyncio.run()` calls.
+and [client.py](modelz/client.py) wraps around them with `asyncio.run()` calls.
 
 - [TensorChord Modelz Python SDK and CLI](#tensorchord-modelz-python-sdk-and-cli)
   - [Installation](#installation)
@@ -11,7 +11,8 @@ and [client.py](modelz/client.py) wraps around it with `asyncio.run()` calls.
     - [pip](#pip)
   - [CLI Usage](#cli-usage)
   - [Example Usage](#example-usage)
-    - [Stable Diffusion](#stable-diffusion)
+    - [CLI Inference](#cli-inference)
+    - [Python Interface](#python-interface)
   - [Develop](#develop)
 
 ## Installation
@@ -48,11 +49,29 @@ options:
 ```
 
 ## Example Usage
-### Stable Diffusion
+### CLI Inference
 
 ```shell
 echo "cute cat" | modelz inference $PROJECT --serde msgpack --write-file cat.jpg --read-stdin
 ```
+### Python Interface
+
+```python
+# use dotenv to load env
+from dotenv import load_dotenv
+load_dotenv()
+
+# example .env:
+# MODELZ_API_KEY=mzi-*****
+# MODELZ_HOST=https://{}.cloud.modelz.dev/ # use this if you're using the dev modelz cluster
+# MODELZ_SSL_VERIFY=0 # disable ssl verification
+
+from modelz import AioModelzClient, ModelzClient
+...
+
+```
+
+
 
 ## Develop
 

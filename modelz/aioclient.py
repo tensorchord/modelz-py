@@ -10,6 +10,7 @@ from rich.console import Console
 
 from .env import EnvConfig
 from .serde import Serde, SerdeEnum, TextSerde
+from modelz.utils import get_ssl_context_no_verify
 
 
 TIMEOUT = 300
@@ -82,6 +83,9 @@ class ModelzClient:
         self.deployment = deployment
         self.auth = ModelzAuth(key)
         self.timeout = timeout
+        self.session_request_kwargs = {}
+        if not getattr(config, 'ssl_verify', True):
+            self.session_request_kwargs |= {'ssl': get_ssl_context_no_verify()}
 
     # async def _post(self, url, content, timeout):
     #     async with aiohttp.ClientSession() as session:
@@ -96,13 +100,13 @@ class ModelzClient:
     async def _post(self, url, content, timeout):
         headers = self.auth.get_headers()
         async with aiohttp.ClientSession() as session:
-            async with session.post(url, data=content, headers=headers, timeout=timeout) as response:
+            async with session.post(url, data=content, headers=headers, timeout=timeout, **self.session_request_kwargs) as response:
                 return response
 
     async def _get(self, url, timeout):
         headers = self.auth.get_headers()
         async with aiohttp.ClientSession() as session:
-            async with session.get(url, headers=headers, timeout=timeout) as response:
+            async with session.get(url, headers=headers, timeout=timeout, **self.session_request_kwargs) as response:
                 return response
 
     async def inference(
