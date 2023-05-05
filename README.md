@@ -2,6 +2,9 @@
 
 [modelz-py](https://github.com/tensorchord/modelz-py) with aiohttp
 
+Basically, [aioclient.py](modelz/aioclient.py) implements the async / aiohttp versions of `Modelz*` classes,  
+and [client.py](modelz/client.py) wraps around it with `asyncio.run()` calls.
+
 - [TensorChord Modelz Python SDK and CLI](#tensorchord-modelz-python-sdk-and-cli)
   - [Installation](#installation)
     - [pipx](#pipx)
