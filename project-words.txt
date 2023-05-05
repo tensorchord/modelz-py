@@ -1,5 +1,7 @@
+aiohttp
 deserilization
 deserilize
+hdrs
 httpx
 maxsplit
 MODELZ
