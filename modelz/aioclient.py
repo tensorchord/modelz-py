@@ -36,9 +36,12 @@ class ModelzAuth:
         if not self.key:
             raise RuntimeError("cannot find the API key")
 
-    async def auth_request(self, request: aiohttp.ClientRequest):
-        request.headers["X-API-Key"] = self.key
-        return request
+    # async def auth_request(self, request: aiohttp.ClientRequest):
+    #     request.headers["X-API-Key"] = self.key
+    #     return request
+
+    def get_headers(self) -> dict:
+        return {"X-API-Key": self.key}
 
 
 class ModelzResponse:
@@ -80,14 +83,26 @@ class ModelzClient:
         self.auth = ModelzAuth(key)
         self.timeout = timeout
 
+    # async def _post(self, url, content, timeout):
+    #     async with aiohttp.ClientSession() as session:
+    #         async with session.post(url, data=content, headers=self.auth.auth_request, timeout=timeout) as response:
+    #             return response
+
+    # async def _get(self, url, timeout):
+    #     async with aiohttp.ClientSession() as session:
+    #         async with session.get(url, headers=self.auth.auth_request, timeout=timeout) as response:
+    #             return response
+
     async def _post(self, url, content, timeout):
+        headers = self.auth.get_headers()
         async with aiohttp.ClientSession() as session:
-            async with session.post(url, data=content, headers=self.auth.auth_request, timeout=timeout) as response:
+            async with session.post(url, data=content, headers=headers, timeout=timeout) as response:
                 return response
 
     async def _get(self, url, timeout):
+        headers = self.auth.get_headers()
         async with aiohttp.ClientSession() as session:
-            async with session.get(url, headers=self.auth.auth_request, timeout=timeout) as response:
+            async with session.get(url, headers=headers, timeout=timeout) as response:
                 return response
 
     async def inference(
