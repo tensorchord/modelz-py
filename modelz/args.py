@@ -26,21 +26,15 @@ def parse_arguments():
         choices=("json", "msgpack", "raw"),
         default="json",
     )
-    inf_parser.add_argument(
-        "--read-stdin", help="read bytes from stdin", action="store_true"
-    )
-    inf_parser.add_argument(
-        "--write-file", help="write received data to file", default=None
-    )
+    inf_parser.add_argument("--read-stdin", help="read bytes from stdin", action="store_true")
+    inf_parser.add_argument("--write-file", help="write received data to file", default=None)
 
     # metrics
     metrics_parser.add_argument(
         "--key",
         help="API key for Modelz, will read from env $MODELZ_API_KEY if not provided",
     )
-    metrics_parser.add_argument(
-        "-d", "--deployment", help="deployment key", required=True
-    )
+    metrics_parser.add_argument("-d", "--deployment", help="deployment key", required=True)
 
     # build
 
