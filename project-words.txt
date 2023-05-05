@@ -1,5 +1,6 @@
 aioclient
 aiohttp
+aiomodelz
 deserilization
 deserilize
 hdrs
@@ -10,6 +11,7 @@ Modelz
 modelz
 msgpack
 packb
+pipx
 pypa
 PYPI
 pypi

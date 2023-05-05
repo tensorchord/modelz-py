@@ -1,17 +1,60 @@
 # Modelz Python SDK
 
-```shell
-pip install modelz-py
+[modelz-py](https://github.com/tensorchord/modelz-py) with aiohttp
+
+- [Modelz Python SDK](#modelz-python-sdk)
+  - [Installation](#installation)
+    - [pipx](#pipx)
+    - [pip](#pip)
+  - [CLI Usage](#cli-usage)
+  - [Example Usage](#example-usage)
+    - [Stable Diffusion](#stable-diffusion)
+  - [Develop](#develop)
+
+## Installation
+
+### pipx
+
+This is the recommended installation method if you only want to use the CLI.
+
+```
+$ pipx install aiomodelz
 ```
 
-## CLI
+### [pip](https://pypi.org/project/aiomodelz/)
 
-```shell
-modelz --help
+```
+$ pip install aiomodelz
 ```
 
+
+## CLI Usage
+
+```shell
+$modelz --help
+
+usage: modelz [-h] {inference,metrics,build} ...
+
+modelz CLI
+
+positional arguments:
+  {inference,metrics,build}
+
+options:
+  -h, --help            show this help message and exit
+```
+
+## Example Usage
 ### Stable Diffusion
 
 ```shell
 echo "cute cat" | modelz inference $PROJECT --serde msgpack --write-file cat.jpg --read-stdin
+```
+
+## Develop
+
+```
+$ git clone https://github.com/tddschn/aiomodelz.git
+$ cd aiomodelz
+$ pdm install
 ```
