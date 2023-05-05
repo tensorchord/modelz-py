@@ -14,7 +14,7 @@ class EnvConfig:
     def update_from_env(self):
         for key in ("api_key", "host", "ssl_verify"):
             val = os.environ.get(f"{PREFIX}{key.upper()}")
-            if key == 'ssl_verify' and val is not None:
+            if key == "ssl_verify" and val is not None:
                 val = strtobool(val)
             if val is not None:
                 setattr(self, key, val)

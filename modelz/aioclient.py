@@ -84,8 +84,8 @@ class ModelzClient:
         self.auth = ModelzAuth(key)
         self.timeout = timeout
         self.session_request_kwargs = {}
-        if not getattr(config, 'ssl_verify', True):
-            self.session_request_kwargs |= {'ssl': get_ssl_context_no_verify()}
+        if not getattr(config, "ssl_verify", True):
+            self.session_request_kwargs |= {"ssl": get_ssl_context_no_verify()}
 
     # async def _post(self, url, content, timeout):
     #     async with aiohttp.ClientSession() as session:
