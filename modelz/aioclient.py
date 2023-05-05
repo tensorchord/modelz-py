@@ -1,9 +1,10 @@
 from __future__ import annotations
-from typing import Any, Generator
+from typing import Any
 from http import HTTPStatus
 from urllib.parse import urljoin
 
 import aiohttp
+
 # from aiohttp import hdrs
 from rich.console import Console
 
@@ -27,6 +28,7 @@ DEFAULT_RETRY = 3
 #     async def auth_request(self, request: aiohttp.ClientRequest):
 #         request.headers[hdrs.X_API_KEY] = self.key
 #         return request
+
 
 class ModelzAuth:
     def __init__(self, key: str | None = None) -> None:
@@ -79,16 +81,12 @@ class ModelzClient:
 
     async def _post(self, url, content, timeout):
         async with aiohttp.ClientSession() as session:
-            async with session.post(
-                url, data=content, headers=self.auth.auth_request, timeout=timeout
-            ) as response:
+            async with session.post(url, data=content, headers=self.auth.auth_request, timeout=timeout) as response:
                 return response
 
     async def _get(self, url, timeout):
         async with aiohttp.ClientSession() as session:
-            async with session.get(
-                url, headers=self.auth.auth_request, timeout=timeout
-            ) as response:
+            async with session.get(url, headers=self.auth.auth_request, timeout=timeout) as response:
                 return response
 
     async def inference(

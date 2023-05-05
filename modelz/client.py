@@ -1,10 +1,8 @@
 from __future__ import annotations
 import asyncio
-from typing import Any, Generator
-from http import HTTPStatus
-from urllib.parse import urljoin
-from modelz.aioclient import ModelzAuth, ModelzResponse, ModelzClient as AioModelzClient
-from modelz.aioclient import TIMEOUT, DEFAULT_RETRY
+from typing import Any
+from modelz.aioclient import ModelzResponse, ModelzClient as AioModelzClient
+from modelz.aioclient import TIMEOUT
 
 # import httpx
 # from rich.console import Console
@@ -63,7 +61,7 @@ class ModelzClient:
         deployment: str | None = None,
         key: str | None = None,
         host: str | None = None,
-        timeout: float | httpx.Timeout = TIMEOUT,
+        timeout: float = TIMEOUT,
     ) -> None:
         """Create a Modelz Client.
 
