@@ -1,3 +1,4 @@
+aioclient
 aiohttp
 deserilization
 deserilize
