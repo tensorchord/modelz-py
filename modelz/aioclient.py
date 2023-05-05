@@ -74,6 +74,7 @@ class ModelzClient:
         timeout: float = TIMEOUT,
     ) -> None:
         # ...
+        config = EnvConfig()
         self.host = host if host else config.host
         self.deployment = deployment
         self.auth = ModelzAuth(key)
