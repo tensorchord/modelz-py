@@ -7,8 +7,8 @@ import aiohttp
 
 from rich.console import Console
 
-from .env import EnvConfig
-from .serde import Serde, SerdeEnum, TextSerde
+from modelz.env import EnvConfig
+from modelz.serde import Serde, SerdeEnum, TextSerde
 from modelz.utils import get_ssl_context_no_verify
 
 
@@ -53,7 +53,7 @@ class ModelzResponse:
         console.print(await self.data)
 
 
-class ModelzClient:
+class AioModelzClient:
     def __init__(
         self,
         deployment: str | None = None,
@@ -69,7 +69,7 @@ class ModelzClient:
         self.timeout = timeout
         self.session_request_kwargs = {}
         if not getattr(config, "ssl_verify", True):
-            self.session_request_kwargs |= {"ssl": get_ssl_context_no_verify()}
+            self.session_request_kwargs.update({"ssl": get_ssl_context_no_verify()})
 
     async def _post(self, url, content, timeout):
         headers = self.auth.get_headers()
@@ -97,7 +97,13 @@ class ModelzClient:
         deployment: str | None = None,
         serde: str = "json",
     ) -> ModelzResponse:
-        # ...
+        """Get the inference result.
+
+        Args:
+            params: request params, will be serialized by `serde`
+            deployment: deployment ID
+            serde: serialize/deserialize method, choose from ("json", "msg", "raw")
+        """
         deploy = deployment if deployment else self.deployment
         assert deploy, "deployment is required"
         self.serde = SerdeEnum[serde.lower()].value()
@@ -112,7 +118,11 @@ class ModelzClient:
         return ModelzResponse(resp, self.serde)
 
     async def metrics(self, deployment: str | None = None) -> ModelzResponse:
-        # ...
+        """Get deployment metrics.
+
+        Args:
+            deployment: deployment ID
+        """
         deploy = deployment if deployment else self.deployment
         assert deploy, "deployment is required"
 
@@ -125,7 +135,7 @@ class ModelzClient:
         return ModelzResponse(resp)
 
     async def build(self, repo: str):
-        # ...
+        """Build a Docker image and push it to the registry."""
         with console.status(f"[bold green]Modelz build {repo}..."):
             resp = await self._post(
                 urljoin(self.host.format("api"), "/build"),

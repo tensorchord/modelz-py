@@ -1,7 +1,7 @@
 from __future__ import annotations
 import asyncio
 from typing import Any
-from modelz.aioclient import ModelzResponse, ModelzClient as AioModelzClient
+from modelz.aioclient import ModelzResponse, AioModelzClient
 from modelz.aioclient import TIMEOUT
 
 

@@ -1,5 +1,5 @@
 from .client import ModelzClient
-from .aioclient import ModelzClient as AioModelzClient
+from .aioclient import AioModelzClient
 
 __all__ = [
     "ModelzClient",
