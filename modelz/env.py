@@ -9,6 +9,7 @@ class EnvConfig:
     def __init__(self) -> None:
         self.api_key: str
         self.host: str = "https://{}.modelz.io/"
+        self.ssl_verify = True
         self.update_from_env()
 
     def update_from_env(self):
