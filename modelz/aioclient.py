@@ -1,11 +1,19 @@
 from __future__ import annotations
-from typing import Any
+from typing import Any, Callable
 from http import HTTPStatus
 from urllib.parse import urljoin
 
 import aiohttp
 
 from rich.console import Console
+
+from tenacity import (
+    before_sleep_log,
+    retry,
+    retry_if_exception_type,
+    stop_after_attempt,
+    wait_exponential,
+)
 
 from modelz.env import EnvConfig
 from modelz.serde import Serde, SerdeEnum, TextSerde
@@ -17,6 +25,18 @@ console = Console()
 DEFAULT_RESP_SERDE = TextSerde()
 DEFAULT_RETRY = 3
 
+def _create_retry_decorator(stop_after: int = DEFAULT_RETRY) -> Callable[[Any], Any]:
+    import openai
+
+    min_seconds = 4
+    max_seconds = 10
+    # Wait 2^x * 1 second between each retry starting with
+    # 4 seconds, then up to 10 seconds, then 10 seconds afterwards
+    return retry(
+        reraise=True,
+        stop=stop_after_attempt(stop_after),
+        wait=wait_exponential(multiplier=1, min=min_seconds, max=max_seconds),
+    )
 
 class ModelzAuth:
     def __init__(self, key: str | None = None) -> None:
