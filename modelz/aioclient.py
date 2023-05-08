@@ -8,9 +8,7 @@ import aiohttp
 from rich.console import Console
 
 from tenacity import (
-    before_sleep_log,
     retry,
-    retry_if_exception_type,
     stop_after_attempt,
     wait_exponential,
 )
@@ -25,18 +23,21 @@ console = Console()
 DEFAULT_RESP_SERDE = TextSerde()
 DEFAULT_RETRY = 3
 
+
 def _create_retry_decorator(stop_after: int = DEFAULT_RETRY) -> Callable[[Any], Any]:
     min_seconds = 4
     max_seconds = 10
     # Wait 2^x * 1 second between each retry starting with
     # 4 seconds, then up to 10 seconds, then 10 seconds afterwards
     return retry(
-        reraise=True, # type: ignore
+        reraise=True,  # type: ignore
         stop=stop_after_attempt(stop_after),
         wait=wait_exponential(multiplier=1, min=min_seconds, max=max_seconds),
     )
 
-retry = _create_retry_decorator()
+
+retry_decorator = _create_retry_decorator()
+
 
 class ModelzAuth:
     def __init__(self, key: str | None = None) -> None:
@@ -91,7 +92,7 @@ class AioModelzClient:
         if not getattr(config, "ssl_verify", True):
             self.session_request_kwargs.update({"ssl": get_ssl_context_no_verify()})
 
-    @retry
+    @retry_decorator
     async def _post(self, url, content, timeout):
         headers = self.auth.get_headers()
         async with aiohttp.ClientSession() as session:
@@ -104,7 +105,7 @@ class AioModelzClient:
             ) as response:
                 return response
 
-    @retry
+    @retry_decorator
     async def _get(self, url, timeout):
         headers = self.auth.get_headers()
         async with aiohttp.ClientSession() as session:
