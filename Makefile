@@ -1,4 +1,4 @@
-PY_SOURCE=modelz
+PY_SOURCE=modelz tests
 
 .DEFAULT_GOAL:=build
 
