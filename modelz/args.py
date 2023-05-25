@@ -1,6 +1,7 @@
 from __future__ import annotations
-from typing import List
+
 import argparse
+from typing import List
 
 
 def parse_arguments():

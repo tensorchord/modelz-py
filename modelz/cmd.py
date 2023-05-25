@@ -1,11 +1,10 @@
-from typing import Optional, Dict
 import sys
+from typing import Dict, Optional
 
 from rich.console import Console
 
-from modelz.client import ModelzClient
 from modelz.args import parse_arguments
-
+from modelz.client import ModelzClient
 
 console = Console()
 

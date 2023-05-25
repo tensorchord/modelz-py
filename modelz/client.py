@@ -1,6 +1,7 @@
 from __future__ import annotations
-from typing import Any, Generator
+
 from http import HTTPStatus
+from typing import Any, Generator
 from urllib.parse import urljoin
 
 import httpx
@@ -8,7 +9,6 @@ from rich.console import Console
 
 from .env import EnvConfig
 from .serde import Serde, SerdeEnum, TextSerde
-
 
 TIMEOUT = httpx.Timeout(5, read=300, write=300)
 console = Console()
