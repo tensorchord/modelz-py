@@ -69,6 +69,9 @@ def test_inference(monkeypatch):
         assert console_output.getvalue() == output_written_message
 
     except Exception as e:
+        raise e
+
+    finally:
         # Resetting the sys.stdin
         # sys.stdin = sys.__stdin__
         monkeypatch.undo()
@@ -78,5 +81,3 @@ def test_inference(monkeypatch):
 
         if os.path.exists(output_file):
             os.remove(output_file)
-
-        raise e
