@@ -1,6 +1,6 @@
 import sys
-from io import StringIO
 import tempfile
+from io import StringIO
 from unittest.mock import MagicMock
 
 from modelz.client import ModelzClient, ModelzResponse
