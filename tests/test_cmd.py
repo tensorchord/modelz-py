@@ -1,5 +1,6 @@
 import sys
 from io import StringIO
+import tempfile
 from unittest.mock import MagicMock
 
 from modelz.client import ModelzClient, ModelzResponse
@@ -11,7 +12,9 @@ def test_inference(monkeypatch):
     # Mocking the behavior of `ModelzClient.inference`
     params_dict = {"key": "value"}
     params_as_saved_in_file = b"Mocked Response" + b" saved in file"
-    output_file = "output.bin"
+    # output_file = "output.bin"
+    # use a temp file instead
+    output_file = tempfile.NamedTemporaryFile().name
     output_written_message = f"result has been written in {output_file}\n"
 
     try:
