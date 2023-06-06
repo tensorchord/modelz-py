@@ -3,7 +3,7 @@ from typing import Dict, Optional
 
 from rich.console import Console
 
-from modelz.args import parse_arguments
+from modelz.args import build_argument_parser, parse_arguments
 from modelz.client import ModelzClient
 
 console = Console()
@@ -67,7 +67,7 @@ def build(repo: str, key: Optional[str] = None):
 
 def main():
     """CLI entrypoint."""
-    command, args, params = parse_arguments()
+    command, args, params = parse_arguments(build_argument_parser())
     if command.startswith("inf"):
         inference(**args, params=params)
     elif command.startswith("metrics"):
