@@ -20,14 +20,14 @@ def inference(
     """Model inference.
 
     Example:
-        `modelz inference -d $DEPLOYMENT prompt='cut cat'`
+        ``modelz inference -d $DEPLOYMENT prompt='cut cat'``
 
     Args:
         deployment: deployment id
         params: request params dict
         read_stdin: read stdin as request body
         write_file: write response to the file
-        key: API key, will try to read from env `MODELZ_API_KEY` if not provided
+        key: API key, will try to read from env ``MODELZ_API_KEY`` if not provided
         serde: serilize/deserilize method, choose from [json|msgpack|raw]
         output: output target, choose from [console|file]
     """
@@ -50,10 +50,10 @@ def metrics(deployment: str, key: Optional[str] = None):
     """Model service metrics.
 
     Usage:
-        `modelz metrics -d $DEPLOYMENT`
+        ``modelz metrics -d $DEPLOYMENT``
 
     Args:
-        key: API key, will try to read from env `MODELZ_API_KEY` if not provided
+        key: API key, will try to read from env ``MODELZ_API_KEY`` if not provided
         deployment: deployment id
     """
     client = ModelzClient(key=key, deployment=deployment)
