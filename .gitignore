@@ -131,3 +131,9 @@ dmypy.json
 # test data files
 *.mp3
 *.jpg
+
+# PDM
+.pdm-python
+
+# Ruff
+.ruff_cache

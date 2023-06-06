@@ -2,7 +2,7 @@ from unittest.mock import patch
 
 import pytest
 
-from modelz.args import parse_arguments
+from modelz.args import build_argument_parser, parse_arguments
 
 
 @pytest.mark.parametrize(
@@ -53,7 +53,7 @@ from modelz.args import parse_arguments
 )
 def test_parse_arguments(args, expect_command, expect_args, expect_params):
     with patch("sys.argv", ["modelz"] + args):
-        command, arguments, params = parse_arguments()
+        command, arguments, params = parse_arguments(build_argument_parser())
         assert command == expect_command
         assert params == expect_params
         for key, value in expect_args.items():

@@ -15,3 +15,9 @@ format:
 
 test:
 	@pytest tests -vv -s
+
+docs:
+	@cd docs && make html && cd ..
+	@python -m http.server -d docs/build/html -b 127.0.0.1
+
+.PHONY: build lint format test docs

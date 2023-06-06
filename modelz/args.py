@@ -4,7 +4,7 @@ import argparse
 from typing import List
 
 
-def parse_arguments():
+def build_argument_parser():
     parser = argparse.ArgumentParser(
         prog="modelz",
         description="modelz CLI",
@@ -47,8 +47,10 @@ def parse_arguments():
         "-d", "--deployment", help="deployment key", required=True
     )
 
-    # build
+    return parser
 
+
+def parse_arguments(parser: argparse.ArgumentParser):
     known, others = parser.parse_known_args()
     params = parse_unknown_args(others)
     command = known.command
