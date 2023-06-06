@@ -35,6 +35,7 @@ class ModelzResponse:
 
     The initialization will raise an error if the response status code is not 200.
     """
+
     def __init__(self, resp: httpx.Response, serde: Serde = DEFAULT_RESP_SERDE):
         if resp.status_code != HTTPStatus.OK:
             console.print(f"[bold red]err[{resp.status_code}][/bold red]: {resp.text}")
@@ -51,7 +52,7 @@ class ModelzResponse:
     @property
     def data(self) -> Any:
         """Access the response data.
-        
+
         It will be decoded by the serde method provided.
         """
         if not self._data:
@@ -72,6 +73,7 @@ class ModelzClient:
         host: Modelz host address
         timeout: request timeout (second)
     """
+
     def __init__(
         self,
         deployment: str | None = None,
@@ -132,7 +134,7 @@ class ModelzClient:
 
     def build(self, repo: str):
         """Build a Docker image and push it to the registry.
-        
+
         Args:
             repo: git repo url
         """
