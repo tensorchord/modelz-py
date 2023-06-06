@@ -37,6 +37,7 @@ write_template = "__version__ = '{}'"
 black = "black --check modelz"
 ruff = "ruff check ."
 lint = {composite = ["black", "ruff"]}
+doc = "make docs"
 [tool.pdm.dev-dependencies]
 lint = [
     "ruff>=0.0.252",

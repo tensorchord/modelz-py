@@ -47,7 +47,7 @@ jobs:
           pdm sync -d -G doc
       - name: Generate docs
         run: |
-          cd docs && make html
+          pdm run doc
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:

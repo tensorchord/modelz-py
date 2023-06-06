@@ -18,6 +18,8 @@ test:
 
 docs:
 	@cd docs && make html && cd ..
+
+docs-dev: docs
 	@python -m http.server -d docs/build/html -b 127.0.0.1
 
 .PHONY: build lint format test docs
