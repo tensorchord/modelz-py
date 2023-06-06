@@ -12,3 +12,6 @@ lint:
 format:
 	@black ${PY_SOURCE}
 	@ruff check --fix .
+
+test:
+	@pytest tests -vv -s

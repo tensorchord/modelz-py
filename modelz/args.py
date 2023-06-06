@@ -11,7 +11,11 @@ def parse_arguments():
     )
 
     subparser = parser.add_subparsers(dest="command")
-    inf_parser = subparser.add_parser("inference")
+    inf_parser = subparser.add_parser(
+        "inference",
+        epilog="You can pass the `key=value` format parameters after the command"
+        "like `modelz inference -d foo model=llm prompt='chat like a cat'`",
+    )
     metrics_parser = subparser.add_parser("metrics")
     subparser.add_parser("build")
 
