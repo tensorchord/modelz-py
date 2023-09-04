@@ -5,13 +5,12 @@ from typing import Any, Generator
 from urllib.parse import urljoin
 
 import httpx
-from rich.console import Console
 
+from modelz.console import console
 from modelz.env import EnvConfig
 from modelz.serde import Serde, SerdeEnum, TextSerde
 
 TIMEOUT = httpx.Timeout(5, read=300, write=300)
-console = Console()
 config = EnvConfig()
 DEFAULT_RESP_SERDE = TextSerde()
 DEFAULT_RETRY = 3

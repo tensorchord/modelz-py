@@ -1,12 +1,9 @@
 import sys
 from typing import Dict, Optional
 
-from rich.console import Console
-
 from modelz.args import build_argument_parser, parse_arguments
 from modelz.client import ModelzClient
-
-console = Console()
+from modelz.console import console
 
 
 def inference(
@@ -29,7 +26,6 @@ def inference(
         write_file: write response to the file
         key: API key, will try to read from env ``MODELZ_API_KEY`` if not provided
         serde: serilize/deserilize method, choose from [json|msgpack|raw]
-        output: output target, choose from [console|file]
     """
     data = params
     if read_stdin:
