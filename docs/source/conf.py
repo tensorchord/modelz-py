@@ -6,9 +6,9 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'modelz-py'
-copyright = '2023, TensorChord'
-author = 'TensorChord'
+project = "modelz-py"
+copyright = "2023, TensorChord"
+author = "TensorChord"
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -20,10 +20,10 @@ extensions = [
     "sphinx.ext.githubpages",
     "sphinx_design",
     "sphinx_copybutton",
-    "sphinxarg.ext",
+    "sphinx_click",
 ]
 
-templates_path = ['_templates']
+templates_path = ["_templates"]
 exclude_patterns = []
 master_doc = "index"
 
@@ -31,8 +31,8 @@ master_doc = "index"
 # -- Options for HTML output -------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#options-for-html-output
 
-html_theme = 'shibuya'
-html_static_path = ['_static']
+html_theme = "shibuya"
+html_static_path = ["_static"]
 html_theme_options = {
     "github_url": "https://github.com/tensorchord/modelz-py",
     "discord_url": "https://discord.gg/KqswhpVgdU",

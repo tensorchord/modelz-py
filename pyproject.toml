@@ -17,8 +17,10 @@ dependencies = [
     "typer[all]>=0.7.0",
     "rich>=12.6.0",
     "gradio-client>=0.2.0",
+    "click>=8.0.4",
+    "attrs>=21.3.0",
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 readme = "README.md"
 license = {text = "Apache-2.0"}
 
@@ -27,7 +29,7 @@ requires = ["pdm-pep517>=1.0"]
 build-backend = "pdm.pep517.api"
 
 [project.scripts]
-modelz = "modelz.cmd:main"
+modelz = "modelz.args:main"
 
 [tool.pdm]
 [tool.pdm.version]
@@ -52,7 +54,11 @@ doc = [
     "shibuya>=2023.3.19",
     "sphinx-design>=0.4.1",
     "sphinx-copybutton>=0.5.2",
-    "sphinx-argparse>=0.4.0",
+    "sphinx_click>=5.0.0",
+]
+generate = [
+    "jsonpath_ng>=1.6.0",
+    "openapi-python-client>=0.15.2"
 ]
 
 [tool.ruff]
