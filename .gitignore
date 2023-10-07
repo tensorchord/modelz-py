@@ -142,4 +142,5 @@ dmypy.json
 .vscode
 
 # generated swag docs
+tmp
 swagger_*.json

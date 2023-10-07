@@ -39,6 +39,10 @@ jobs:
     - name: Lint
       run: |
         pdm run lint --exclude openapi
+    - name: Verify openapi generate
+      run: |
+        make generate && git add * &&
+        git diff --cached --exit-code || (echo 'Please run "make generate" to verify generate' && exit 1)
 
   test:
     runs-on: ${{ matrix.os }}
