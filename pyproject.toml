@@ -41,6 +41,7 @@ black = "black --check modelz"
 ruff = "ruff check ."
 lint = {composite = ["black", "ruff"]}
 doc = "make docs"
+generate = "make generate"
 [tool.pdm.dev-dependencies]
 lint = [
     "ruff>=0.0.252",

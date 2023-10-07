@@ -7,12 +7,13 @@ Welcome to modelz's documentation!
 =====================================
 
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Reference:
    :hidden:
 
-   api
    cli
+   api
+   openapi
 
 
 ``modelz`` is a Python package for calling model prediction and management APIs that are on the modelz_ platform. We provide both Python SDK and CLI interface.

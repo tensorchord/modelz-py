@@ -9,6 +9,3 @@ Python SDK interface
 
 .. autoclass:: modelz.openapi_client.DeploymentClient
    :members:
-
-.. automodule:: openapi.sdk.models
-   :members:
