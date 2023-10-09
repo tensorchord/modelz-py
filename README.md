@@ -8,7 +8,7 @@
 
 `Templates` are preset Docker images for `deployment`, which is widely acknowledged used ML models, official templates are built and maintained by `ModelZ` developers. While it's available for you to define your own `template` and `deployment`.
 
-The python SDK is designed for CURD to your `deployments`, and sent request to them to make `inference`. It 's an alternative of ModelZ WebUI operation, which could be more friendly with CI/CD pipelines or at model development.
+The python SDK is designed for CURD to your `deployments`, and sent request to them to make `inference`. It's an alternative of ModelZ WebUI operation, which could be more friendly with CI/CD pipelines or at model development.
 
 ## Install
 
@@ -20,11 +20,11 @@ pip install modelz-py
 
 We support these functions now:
 
-- create/update/list/delete deployment
+- create/update/list/delete deployments
 - make inference to deployments
 - get metric information of any deployment
 
-This functions will be supported in the future:
+Those functions will be supported in the future:
 
 - build image and push to registry
 
@@ -37,6 +37,12 @@ This functions will be supported in the future:
 #### Step 1: Create deployment
 First, you need to create a deployment at ModelZ platform. We pick `Stable Diffusion` image for this example.
 To get more predefined images, see our [templates](https://cloud.modelz.ai/templates).
+
+You can get your ModelZ `API Key` and `User ID` from [here](https://cloud.modelz.ai/settings) after register.
+
+ModelZ supports these type of images:
+- DockerHub images: starts with `docker.io/...`, you could build it yourself and upload to DockerHub.
+- Google Cloud Registry images: starts with `xxx-docker.pkg.dev/...`, maintainered by ModelZ developers and you could find them at our [Templates](https://cloud.modelz.ai/templates).
 
 ```shell
 export MODELZ_API_KEY=mzi-1234567890987654321
