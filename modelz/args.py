@@ -25,9 +25,9 @@ click_option_host = click.option(
     help="Control Apiserver host for Modelz, "
     + "will read from env $MODELZ_CTRL_HOST if not provided",
 )
-click_option_login_name = click.option(
-    "--login-name",
-    "-n",
+click_option_user_id = click.option(
+    "--user-id",
+    "-u",
     type=click.UUID,
     required=True,
     envvar="MODELZ_USER",
@@ -159,7 +159,7 @@ def deployment():
     name="create", context_settings={"help_option_names": ["-h", "--help"]}
 )
 @click_option_host
-@click_option_login_name
+@click_option_user_id
 @click_option_key
 @click.option(
     "--image-source",
@@ -241,7 +241,7 @@ def deployment():
 )
 def deployment_create(  # noqa PLR0913
     host: str,
-    login_name: str,
+    user_id: str,
     key: str,
     image_source: Literal["docker"],
     image: str,
@@ -278,7 +278,7 @@ def deployment_create(  # noqa PLR0913
         command=command if command else UNSET,
         env_vars=DeploymentSpecEnvVars.from_dict(envs),
     )
-    client = DeploymentClient(login_name=login_name, key=key, host=host)
+    client = DeploymentClient(login_name=user_id, key=key, host=host)
     resp = client.create(req=DeploymentCreateRequest(spec))
     jsonFormattedPrint(resp)
 
@@ -287,10 +287,10 @@ def deployment_create(  # noqa PLR0913
     name="list", context_settings={"help_option_names": ["-h", "--help"]}
 )
 @click_option_host
-@click_option_login_name
+@click_option_user_id
 @click_option_key
-def deployment_list(host: str, login_name: str, key: str):
-    client = DeploymentClient(login_name=login_name, key=key, host=host)
+def deployment_list(host: str, user_id: str, key: str):
+    client = DeploymentClient(login_name=user_id, key=key, host=host)
     resp = client.list()
     jsonFormattedPrint(resp)
 
@@ -299,7 +299,7 @@ def deployment_list(host: str, login_name: str, key: str):
     name="update", context_settings={"help_option_names": ["-h", "--help"]}
 )
 @click_option_host
-@click_option_login_name
+@click_option_user_id
 @click_option_key
 @click_option_deployment
 @click.option(
@@ -337,7 +337,7 @@ def deployment_list(host: str, login_name: str, key: str):
 )
 def deployment_update(  # noqa: PLR0913
     host: str,
-    login_name: str,
+    user_id: str,
     key: str,
     deployment: str,
     min_replicas: Optional[int],
@@ -363,7 +363,7 @@ def deployment_update(  # noqa: PLR0913
         command=UNSET,
         env_vars=envs,
     )
-    client = DeploymentClient(login_name=login_name, key=key, host=host)
+    client = DeploymentClient(login_name=user_id, key=key, host=host)
     resp = client.update(name=deployment, req=param)
     jsonFormattedPrint(resp)
 
@@ -372,11 +372,11 @@ def deployment_update(  # noqa: PLR0913
     name="delete", context_settings={"help_option_names": ["-h", "--help"]}
 )
 @click_option_host
-@click_option_login_name
+@click_option_user_id
 @click_option_key
 @click_option_deployment
-def deployment_delete(host: str, login_name: str, key: str, deployment: str):
-    client = DeploymentClient(login_name=login_name, key=key, host=host)
+def deployment_delete(host: str, user_id: str, key: str, deployment: str):
+    client = DeploymentClient(login_name=user_id, key=key, host=host)
     resp = client.delete(deployment)
     if resp.parsed is not None:
         jsonFormattedPrint(resp)

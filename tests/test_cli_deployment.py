@@ -29,7 +29,7 @@ from openapi.sdk.types import UNSET, Response
         (
             "basic",
             [
-                "-n",
+                "-u",
                 "00000000-1111-1111-1111-000000000000",
                 "-k",
                 "testkey",
@@ -63,7 +63,7 @@ from openapi.sdk.types import UNSET, Response
         (
             "explicit",
             [
-                "-n",
+                "-u",
                 "00000000-1111-1111-1111-000000000000",
                 "-k",
                 "testkey",
@@ -109,7 +109,7 @@ from openapi.sdk.types import UNSET, Response
         (
             "envvars",
             [
-                "-n",
+                "-u",
                 "00000000-1111-1111-1111-000000000000",
                 "-k",
                 "testkey",
@@ -163,7 +163,7 @@ def test_deployment_create(name, args, expect_spec):
 @pytest.mark.parametrize(
     "name, args",
     [
-        ("basic", ["-n", "00000000-1111-1111-1111-000000000000", "-k", "testkey"]),
+        ("basic", ["-u", "00000000-1111-1111-1111-000000000000", "-k", "testkey"]),
     ],
 )
 def test_deployment_list(name, args):
@@ -187,7 +187,7 @@ def test_deployment_list(name, args):
         (
             "basic",
             [
-                "-n",
+                "-u",
                 "00000000-1111-1111-1111-000000000000",
                 "-k",
                 "testkey",
@@ -207,7 +207,7 @@ def test_deployment_list(name, args):
         (
             "explicit",
             [
-                "-n",
+                "-u",
                 "00000000-1111-1111-1111-000000000000",
                 "-k",
                 "testkey",
@@ -230,7 +230,7 @@ def test_deployment_list(name, args):
         (
             "envvars",
             [
-                "-n",
+                "-u",
                 "00000000-1111-1111-1111-000000000000",
                 "-k",
                 "testkey",
@@ -270,7 +270,7 @@ def test_deployment_update(name, args, expect_req):
         (
             "basic",
             [
-                "-n",
+                "-u",
                 "00000000-1111-1111-1111-000000000000",
                 "-k",
                 "testkey",

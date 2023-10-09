@@ -57,7 +57,7 @@ modelz deployment create \
 #### Step 2: Make Inference
 Get endpoint of deployment from `create`command result. If you missed it, you could fetch it from `list` command:
 ```shell
-modelz deployment list -k mzi-1234567890987654321 -n 00000000-1111-1111-1111-000000000000
+modelz deployment list -k mzi-1234567890987654321 -u 00000000-1111-1111-1111-000000000000
 ```
 
 Then you could send any inference you like to the deployment.

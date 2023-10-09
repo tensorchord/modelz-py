@@ -1,10 +1,10 @@
 import json
 import re
 
-import httpx
 from rich.console import Console
 
 from modelz.env import EnvConfig
+from openapi.sdk.types import Response
 
 config = EnvConfig()
 
@@ -34,9 +34,9 @@ class ModelzConsole:
 console = ModelzConsole() if config.disable_rich else Console()
 
 
-def jsonFormattedPrint(resp: httpx.Response):
+def jsonFormattedPrint(resp: Response):
     try:
-        formatted = json.dumps(json.loads(resp.content.decode()), indent=2)
+        formatted = json.dumps(resp.parsed.to_dict(), indent=2)
     except Exception:
         formatted = resp.content.decode()
     finally:

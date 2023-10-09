@@ -61,6 +61,9 @@ generate = [
     "jsonpath_ng>=1.6.0",
     "openapi-python-client>=0.15.2"
 ]
+[tool.pdm.build]
+includes = ["modelz/", "openapi/"]
+excludes = ["docs/", "hack/", "openapi/swagger*","tests/"]
 
 [tool.ruff]
 line-length = 88

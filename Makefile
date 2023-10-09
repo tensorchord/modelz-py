@@ -8,7 +8,7 @@ build:
 
 build-local: build
 	@pip uninstall -y modelz-py
-	@pip install dist/modelz_py*
+	@pip install -e .
 
 lint:
 	@black --check --diff ${PY_SOURCE}
