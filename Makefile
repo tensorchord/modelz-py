@@ -7,7 +7,6 @@ build:
 	@pdm build
 
 build-local: build
-	@pip uninstall -y modelz-py
 	@pip install -e .
 
 lint:
@@ -32,6 +31,8 @@ docs-dev: docs
 # when swagger goreleaser asset is ready
 
 # Only maintainers of ModelZ could run this command!
+# These files are generated:
+# - openapi/swagger.json
 openapi-sync:
 	@git clone --depth=1 git@github.com:tensorchord/modelz.git --branch ${MODELZ_VERSION} tmp
 	@cp tmp/apiserver/pkg/docs/swagger.json openapi/swagger.json
@@ -39,6 +40,11 @@ openapi-sync:
 
 # TODO(junyuchen): Move to generated v3.0 OpenAPI doc when swag supports it
 # https://github.com/swaggo/swag/issues/386 and remove convert and pre-fix
+
+# These files are generated:
+# - openapi/swagger_v3.json
+# - openapi/swagger_fix.json
+# - openapi/sdk/*
 generate:
 	@curl -X 'POST' https://converter.swagger.io/api/convert \
 	-H 'Content-Type: application/json' \
