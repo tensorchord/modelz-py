@@ -37,8 +37,6 @@ console = ModelzConsole() if config.disable_rich else Console()
 def jsonFormattedPrint(resp: Response):
     if hasattr(resp.parsed, "to_dict") and callable(resp.parsed.to_dict):
         formatted = json.dumps(resp.parsed.to_dict(), indent=2)
-    elif resp.parsed is None:
-        formatted = "OK"
     else:
         formatted = resp.content.decode(errors="ignore")
     console.print(formatted)
