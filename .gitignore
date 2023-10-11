@@ -137,3 +137,10 @@ dmypy.json
 
 # Ruff
 .ruff_cache
+
+# vscode
+.vscode
+
+# generated swag docs
+tmp
+swagger_*.json

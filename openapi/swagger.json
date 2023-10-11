@@ -1,0 +1,5315 @@
+{
+    "schemes": [
+        "https"
+    ],
+    "swagger": "2.0",
+    "info": {
+        "description": "Modelz API",
+        "title": "Modelz API",
+        "contact": {
+            "name": "modelz support",
+            "url": "https://github.com/tensorchord/modelz",
+            "email": "modelz-support@tensorchord.ai"
+        },
+        "version": "v0.0.12"
+    },
+    "host": "cloud.modelz.ai",
+    "basePath": "/api/v1",
+    "paths": {
+        "/clusteragent/connect": {
+            "get": {
+                "description": "Managed cluster agent connect",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "managed_cluster"
+                ],
+                "summary": "Managed cluster agent connect",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/clusters/{cluster_id}/server_resources": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the server resources.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "deployment"
+                ],
+                "summary": "Get the server resources.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ServerResourceInfo"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/fake-error": {
+            "get": {
+                "description": "It should not be used.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "fake error.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/pkg_server.Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/gradio/{id}": {
+            "get": {
+                "description": "Reverse proxy to the backend gradio.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "inference"
+                ],
+                "summary": "Reverse proxy to the backend gradio.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deployment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "post": {
+                "description": "Reverse proxy to the backend gradio.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "inference"
+                ],
+                "summary": "Reverse proxy to the backend gradio.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deployment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/info": {
+            "get": {
+                "description": "Get system info.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "Get system info.",
+                "parameters": [
+                    {
+                        "type": "boolean",
+                        "description": "with agent info",
+                        "name": "with-agent",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Version"
+                        }
+                    }
+                }
+            }
+        },
+        "/mosec/{id}": {
+            "get": {
+                "description": "Reverse proxy to the backend mosec.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "inference"
+                ],
+                "summary": "Reverse proxy to the backend mosec.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deployment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/mosec/{id}/inference": {
+            "post": {
+                "description": "Reverse proxy to the backend mosec.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "inference"
+                ],
+                "summary": "Reverse proxy to the backend mosec.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deployment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/mosec/{id}/metrics": {
+            "get": {
+                "description": "Reverse proxy to the backend mosec.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "inference"
+                ],
+                "summary": "Reverse proxy to the backend mosec.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deployment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/other/{id}": {
+            "get": {
+                "description": "Reverse proxy to the backend other.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "inference"
+                ],
+                "summary": "Reverse proxy to the backend other.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deployment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "post": {
+                "description": "Reverse proxy to the backend other.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "inference"
+                ],
+                "summary": "Reverse proxy to the backend other.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deployment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/ping": {
+            "get": {
+                "description": "get the status of server.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "Show the status of server.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    }
+                }
+            }
+        },
+        "/public_templates": {
+            "get": {
+                "description": "List the public template.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "template"
+                ],
+                "summary": "List the public template.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Template"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/streamlit/{id}": {
+            "get": {
+                "description": "Reverse proxy to streamlit.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "inference"
+                ],
+                "summary": "Reverse proxy to streamlit.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deployment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            },
+            "post": {
+                "description": "Reverse proxy to streamlit.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "inference"
+                ],
+                "summary": "Reverse proxy to streamlit.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Deployment ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/system/register_hook": {
+            "post": {
+                "description": "Webhook handler for new users. Only called by the supabase when a new user is created.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "Webhook handler for new users.",
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_pkg_internal_types.TableRecord"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/system/spend_limit_hook": {
+            "post": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "spend limit webhook",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "bill",
+                    "system"
+                ],
+                "summary": "Spend limit webhook",
+                "parameters": [
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.SpendLimitHookRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/system/stripe_hook": {
+            "post": {
+                "description": "Webhook handler for payment method. It is for stripe setup_intent.succeeded.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "system"
+                ],
+                "summary": "Webhook handler for payment method.",
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    }
+                }
+            }
+        },
+        "/teams/": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List user teams.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "List user teams.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamListResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/teams/accept_invite": {
+            "post": {
+                "description": "Invite a user to the team.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "Invite a user to the team.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Serialized structure of invitation",
+                        "name": "sign",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamMemberResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/teams/{login_name}": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get team info and member info.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "Get team info and member info.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "login team name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamSpec"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Destroy a team.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "Destroy a team.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "login team name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/agent_tokens": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List agent token by userid",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "agent_token"
+                ],
+                "summary": "List agent tokens by userid",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.AgentTokenList"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Create agent token",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "agent_token"
+                ],
+                "summary": "Create agent token",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.AgentToken"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "agent:e50886f3-caa6-449f-9fa8-7849c6ba2e08:f51c4f21508f4139bab9e12ea5d01994",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.AgentToken"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/api_keys": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the API key.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "api_key"
+                ],
+                "summary": "Get the API key.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.KeyResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Regenerate the API key.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "api_key"
+                ],
+                "summary": "Regenerate the API key.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.KeyResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/build": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List the build.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "build"
+                ],
+                "summary": "List the build.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.BuildListResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Create the build.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "build"
+                ],
+                "summary": "Create the build.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.BuildResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/build/{name}": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the build.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "build"
+                ],
+                "summary": "Get the build.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "build name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.BuildResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List managed clusters",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "managed_cluster"
+                ],
+                "summary": "List managed clusters",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ManagedClusterList"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Create managed cluster",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "managed_cluster"
+                ],
+                "summary": "Create managed cluster",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "cluster register request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ManagedCluster"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ManagedCluster"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get a managed cluster",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "managed_cluster"
+                ],
+                "summary": "Get a managed cluster",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ManagedCluster"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Update a managed cluster",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "managed_cluster"
+                ],
+                "summary": "Update a managed cluster",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "cluster update request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ManagedCluster"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ManagedCluster"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/api_keys": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List managed cluster API keys",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "managed_cluster"
+                ],
+                "summary": "List managed cluster API keys",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.APIKeyMap"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/build/{name}/logs": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the build log with the given build name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "build",
+                    "log"
+                ],
+                "summary": "Get the build log.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "build id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "since",
+                        "name": "since",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "tail",
+                        "name": "tail",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentLogResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List the deployments.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "deployment"
+                ],
+                "summary": "List the deployments.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentListResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Create the deployment.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "deployment"
+                ],
+                "summary": "Create the deployment.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentCreateRequest"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{deployment_id}": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get managed cluster user by deployment id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "managed_cluster"
+                ],
+                "summary": "Get managed cluster user by deployment id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "deployment_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the deployment with the given deployment name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "deployment"
+                ],
+                "summary": "Get the deployment.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentResponse"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Update the deployment.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "deployment"
+                ],
+                "summary": "Update the deployment.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentUpdateRequest"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Remove the deployment.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "deployment"
+                ],
+                "summary": "Remove the deployment.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/guides": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the deployment guide with the given deployment name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "deployment"
+                ],
+                "summary": "Get the deployment guide.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentGuide"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/instances": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List the instances for the given inference deployment.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "deployment",
+                    "instance"
+                ],
+                "summary": "List the instances for the given inference deployment.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceListResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/logs": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the deployment log with the given deployment name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "log",
+                    "deployment"
+                ],
+                "summary": "Get the deployment log.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "since",
+                        "name": "since",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "tail",
+                        "name": "tail",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentLogResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/available_replicas": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the deployment replicas metrics with the given deployment name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get the deployment replicas metrics.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.MetricResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/inflight_requests": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the deployment inflight requests metrics with the given deployment name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get the deployment inflight requests metrics.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.MetricResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/instance_cpu_usage": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get deployment instance metrics CPU usage with the given deployment name and instance name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get deployment instance metrics CPU usage",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/instance_disk_read": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get deployment instance metrics disk read with the given deployment name and instance name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get deployment instance metrics disk read",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/instance_disk_write": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get deployment instance metrics disk write with the given deployment name and instance name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get deployment instance metrics disk write",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/instance_gpu_memory_usage": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get deployment instance metrics GPU memory usage  with the given deployment name and instance name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get deployment instance metrics GPU memory usage",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/instance_gpu_memory_utilization": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get deployment instance metrics GPU memory utilizationwith the given deployment name and instance name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get deployment instance metrics GPU memory utilization",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/instance_gpu_utilization": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get deployment instance metrics GPU utilization  with the given deployment name and instance name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get deployment instance metrics GPU utilization",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/instance_memory_usage": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get deployment instance metrics Memory usage with the given deployment name and instance name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get deployment instance metrics Memory usage",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/instance_network_read": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get deployment instance metrics network read with the given deployment name and instance name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get deployment instance metrics network read",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/instance_network_write": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get deployment instance metrics network write with the given deployment name and instance name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get deployment instance metrics network write",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/replicas": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the deployment replicas metrics with the given deployment name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get the deployment replicas metrics.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.MetricResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/deployments/{name}/metrics/total_requests": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the deployment total requests metrics with the given deployment name.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "metric",
+                    "deployment"
+                ],
+                "summary": "Get the deployment total requests metrics.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "start",
+                        "name": "start",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "end",
+                        "name": "end",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "step",
+                        "name": "step",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.MetricResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/clusters/{cluster_id}/namespaces": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List managed cluster namespaces",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "managed_cluster"
+                ],
+                "summary": "List managed cluster namespaces",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "cluster id",
+                        "name": "cluster_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.NamespaceList"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/deployments/{name}/events": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get events by deployment id and user id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "events",
+                    "deployment"
+                ],
+                "summary": "Get events by deployment id and user id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login_name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "deployment id",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentEventListResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/events": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get events by user id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "events"
+                ],
+                "summary": "Get events by user id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login_name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentEventListResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/profile": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the user profile.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get the user profile.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.UserProfile"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/secrets": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List secrets",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "secrets"
+                ],
+                "summary": "List secrets",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login_name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.SecretListResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Create secret",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "secrets"
+                ],
+                "summary": "Create secret",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login_name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "request",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.SecretCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.SecretCreateResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/secrets/{name}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get secret",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "secrets"
+                ],
+                "summary": "Get secret",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login_name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Secret"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Remove secret",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "secrets"
+                ],
+                "summary": "Remove secret",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login_name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/settings/billing/credit": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get credit",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "bill"
+                ],
+                "summary": "Get credit",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.CreditWallet"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/settings/billing/session_token": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the meter session token.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "bill"
+                ],
+                "summary": "Get the meter session token.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.MeterSessionKeyResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/settings/billing/spend_limit": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get spend limit",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "bill"
+                ],
+                "summary": "Get spend limit",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.SpendLimit"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Create spend limit",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "bill"
+                ],
+                "summary": "Create spend limit",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.SpendLimit"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.SpendLimit"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Delete spend limit",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "bill"
+                ],
+                "summary": "Delete spend limit",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.SpendLimit"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/status": {
+            "get": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the user status.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get the user status.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.UserStatus"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/teams": {
+            "post": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Create the team.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "Create the team.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamSpec"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/teams/{name}": {
+            "put": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Update the team.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "Update the team.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "login team name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "user name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamSpec"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/templates": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "List the user template.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "template"
+                ],
+                "summary": "List the user template.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Template"
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Update the template.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "template"
+                ],
+                "summary": "Update the template.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TemplateUpdateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_pkg_query.Template"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Create the template.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "template"
+                ],
+                "summary": "Create the template.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TemplateCreateRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_pkg_query.Template"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{login_name}/templates/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    },
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Get the template.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "template"
+                ],
+                "summary": "Get the template.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "template id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_pkg_query.Template"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Delete the template.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "template"
+                ],
+                "summary": "Delete the template.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "login name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "template id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/{login_name}/members/{member_id}": {
+            "put": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Edit user role of a team",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "Edit user role of a team.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "login team name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "member id",
+                        "name": "member_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User role",
+                        "name": "role",
+                        "in": "query",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Team invite user.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "Team invite user.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "login team name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "member id",
+                        "name": "member_id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "description": "query params",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamMemberRequest"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamSpec"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "security": [
+                    {
+                        "Authentication": []
+                    }
+                ],
+                "description": "Remove user from a team.",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "team"
+                ],
+                "summary": "Remove user from a team.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "login team name",
+                        "name": "login_name",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "example": "\"e50886f3-caa6-449f-9fa8-7849c6ba2e08\"",
+                        "description": "member id",
+                        "name": "member_id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "github_com_tensorchord_modelz_apiserver_api_types.APIKeyMap": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "string"
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.AWSSecret": {
+            "type": "object",
+            "properties": {
+                "access_key_id": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "secret_access_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.AgentToken": {
+            "type": "object",
+            "properties": {
+                "cluster_id": {
+                    "type": "string"
+                },
+                "cluster_name": {
+                    "type": "string"
+                },
+                "token": {
+                    "description": "Token is the token used by agent to register managed cluster",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.AgentTokenList": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.AgentToken"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.AgentVersionInfo": {
+            "type": "object",
+            "properties": {
+                "orchestration": {
+                    "type": "string"
+                },
+                "provider": {
+                    "type": "string"
+                },
+                "version": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.VersionInfo"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.BuildListResponse": {
+            "type": "object",
+            "properties": {
+                "deployment": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/types.Build"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.BuildResponse": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "$ref": "#/definitions/types.BuildSpec"
+                },
+                "status": {
+                    "$ref": "#/definitions/types.BuildStatus"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.CreditWallet": {
+            "type": "object",
+            "properties": {
+                "left": {
+                    "type": "number"
+                },
+                "total": {
+                    "type": "number"
+                },
+                "used": {
+                    "type": "number"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.Deployment": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentSpec"
+                },
+                "status": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentStatus"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentCreateRequest": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentSpec"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentDockerSource": {
+            "type": "object",
+            "properties": {
+                "image": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentEvent": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "deployment_id": {
+                    "type": "string"
+                },
+                "event_type": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentEventListResponse": {
+            "type": "object",
+            "properties": {
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentEvent"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentGitSource": {
+            "type": "object",
+            "properties": {
+                "branch": {
+                    "type": "string"
+                },
+                "builder": {
+                    "type": "string"
+                },
+                "directory": {
+                    "description": "directory is the target directory name.\nMust not contain or start with '..'.  If '.' is supplied, the volume directory will be the\ngit repository.  Otherwise, if specified, the volume will contain the git repository in\nthe subdirectory with the given name.\n+optional",
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "image_tag": {
+                    "type": "string"
+                },
+                "repo": {
+                    "type": "string"
+                },
+                "revision": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentGuide": {
+            "type": "object",
+            "properties": {
+                "markdown": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentHuggingfaceSpaceSource": {
+            "type": "object",
+            "properties": {
+                "space": {
+                    "type": "string"
+                },
+                "tag": {
+                    "description": "tag is the tag of the docker image. (Optional)\nIf not set, we will get from the huggingface API.",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentInstance": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceSpec"
+                },
+                "status": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceStatus"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentListResponse": {
+            "type": "object",
+            "properties": {
+                "deployments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Deployment"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentLog": {
+            "type": "object",
+            "properties": {
+                "deployment_id": {
+                    "type": "string"
+                },
+                "instance": {
+                    "type": "string"
+                },
+                "text": {
+                    "type": "string"
+                },
+                "timestamp": {
+                    "type": "string"
+                },
+                "user": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentLogResponse": {
+            "type": "object",
+            "properties": {
+                "logs": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentLog"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentResource": {
+            "type": "object",
+            "properties": {
+                "cpu": {
+                    "type": "string"
+                },
+                "gpu": {
+                    "type": "string"
+                },
+                "memory": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentResponse": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentSpec"
+                },
+                "status": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentStatus"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentSource": {
+            "type": "object",
+            "properties": {
+                "docker": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentDockerSource"
+                },
+                "git": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentGitSource"
+                },
+                "huggingface": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentHuggingfaceSpaceSource"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentSpec": {
+            "type": "object",
+            "properties": {
+                "cluster": {
+                    "type": "string"
+                },
+                "command": {
+                    "description": "Command is the command to run.",
+                    "type": "string"
+                },
+                "deployment_resource": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentResource"
+                },
+                "deployment_source": {
+                    "description": "DeploymentSource represents the location and type of the deployment.",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentSource"
+                        }
+                    ]
+                },
+                "env_vars": {
+                    "description": "EnvVars is the environment variables of the deployment.",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "framework": {
+                    "description": "Framework is the framework of the deployment. (mosec, gradio, streamlit, other)",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.FrameworkType"
+                        }
+                    ]
+                },
+                "http_probe_path": {
+                    "description": "HTTPProbePath is the user defined path of the http probe.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID holds the unique identifier of the deployment.",
+                    "type": "string"
+                },
+                "image_config": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ImageConfig"
+                },
+                "max_replicas": {
+                    "description": "MaxReplicas is the maximum number of replicas of the deployment.",
+                    "type": "integer"
+                },
+                "min_replicas": {
+                    "description": "MinReplicas is the minimum number of replicas of the deployment.",
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "Name is the name of the deployment. e.g. demo.\n[a-z0-9]([-a-z0-9]*[a-z0-9])?",
+                    "type": "string"
+                },
+                "port": {
+                    "description": "Port is the port of the deployment.",
+                    "type": "integer"
+                },
+                "secret": {
+                    "description": "Secret is the secret of the deployment.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "server_resource": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ServerResource"
+                },
+                "spot_instance": {
+                    "type": "boolean"
+                },
+                "startup_duration": {
+                    "description": "StartupDuration is the startup timeout.",
+                    "type": "integer"
+                },
+                "target_load": {
+                    "description": "TargetLoad is the target load of the deployment. (inflight requests per replica)",
+                    "type": "integer"
+                },
+                "templateId": {
+                    "description": "TemplateID is the template ID of the deployment.",
+                    "type": "string"
+                },
+                "zero_duration": {
+                    "description": "ZeroDuration is the idle timeout before scaling to zero.",
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentStatus": {
+            "type": "object",
+            "properties": {
+                "available_replicas": {
+                    "description": "AvailableReplicas is the count of replicas ready to receive\ninvocations as reported by the faas-provider",
+                    "type": "integer"
+                },
+                "build_id": {
+                    "type": "string"
+                },
+                "created_at": {
+                    "description": "CreatedAt is the time read back from the faas backend's\ndata store for when the function or its container was created.",
+                    "type": "string"
+                },
+                "endpoint": {
+                    "description": "Endpoint is the endpoint of the deployment. e.g. https://df433125-bdaa-4180-9087-313d5f64a3d5.modelz.ai",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "Image is the image name of the deployment.",
+                    "type": "string"
+                },
+                "innocation_count": {
+                    "description": "InvocationCount count of invocations",
+                    "type": "integer"
+                },
+                "phase": {
+                    "description": "Phase is the current phase of the deployment.",
+                    "type": "string"
+                },
+                "replicas": {
+                    "description": "Replicas desired within the cluster",
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DeploymentUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "command": {
+                    "description": "Command is the command to run.",
+                    "type": "string"
+                },
+                "env_vars": {
+                    "description": "EnvVars is the environment variables of the deployment.",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "http_probe_path": {
+                    "description": "HTTPProbePath is the user defined path of the http probe.",
+                    "type": "string"
+                },
+                "max_replicas": {
+                    "description": "MaxReplicas is the maximum number of replicas of the deployment.",
+                    "type": "integer"
+                },
+                "min_replicas": {
+                    "description": "MinReplicas is the minimum number of replicas of the deployment.",
+                    "type": "integer"
+                },
+                "port": {
+                    "description": "Port is the port of the deployment.",
+                    "type": "integer"
+                },
+                "secret": {
+                    "description": "Secret is the secret of the deployment.",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "startup_duration": {
+                    "description": "StartupDuration is the startup timeout.",
+                    "type": "integer"
+                },
+                "target_load": {
+                    "description": "TargetLoad is the target load of the deployment. (inflight requests per replica)",
+                    "type": "integer"
+                },
+                "zero_duration": {
+                    "description": "ZeroDuration is the idle timeout before scaling to zero.",
+                    "type": "integer"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.DockerSecret": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.FrameworkType": {
+            "type": "string",
+            "enum": [
+                "mosec",
+                "gradio",
+                "streamlit",
+                "other",
+                "unknown"
+            ],
+            "x-enum-varnames": [
+                "FrameworkTypeMosec",
+                "FrameworkTypeGradio",
+                "FrameworkTypeStreamlit",
+                "FrameworkTypeOther",
+                "FrameworkTypeUnknown"
+            ]
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.GCPSecret": {
+            "type": "object",
+            "properties": {
+                "json_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.ImageConfig": {
+            "type": "object",
+            "properties": {
+                "enable_cache_optimize": {
+                    "description": "EnableCacheOptimize is the flag to enable image cache optimization.",
+                    "type": "boolean"
+                },
+                "secret_id": {
+                    "description": "Secret for private registry",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.Instance": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "namespace": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.InstanceListResponse": {
+            "type": "object",
+            "properties": {
+                "instances": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentInstance"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponse": {
+            "type": "object",
+            "properties": {
+                "instance": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Instance"
+                },
+                "metrics": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.MetricResponse"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponseList": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.InstanceMetricResponse"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.InstanceSpec": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "owner_reference": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.InstanceStatus": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "string"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "phase": {
+                    "type": "string"
+                },
+                "reason": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.KeyResponse": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.ManagedCluster": {
+            "type": "object",
+            "properties": {
+                "created_at": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "kubernetes_version": {
+                    "type": "string"
+                },
+                "name": {
+                    "description": "For show name",
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string"
+                },
+                "region": {
+                    "type": "string"
+                },
+                "server_resources": {
+                    "type": "string"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "token_id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.ManagedClusterList": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ManagedCluster"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.MemberRole": {
+            "type": "string",
+            "enum": [
+                "owner",
+                "member",
+                "pending"
+            ],
+            "x-enum-varnames": [
+                "RoleOwner",
+                "RoleMember",
+                "RolePending"
+            ]
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.MeterSessionKeyResponse": {
+            "type": "object",
+            "properties": {
+                "session_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.Metric": {
+            "type": "object",
+            "properties": {
+                "unix_seconds": {
+                    "type": "integer"
+                },
+                "value": {
+                    "type": "number"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.MetricResponse": {
+            "type": "object",
+            "properties": {
+                "metrics": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Metric"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.NamespaceList": {
+            "type": "object",
+            "properties": {
+                "items": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.Secret": {
+            "type": "object",
+            "properties": {
+                "aws": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.AWSSecret"
+                },
+                "docker": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DockerSecret"
+                },
+                "gcp": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.GCPSecret"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "type": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.SecretType"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.SecretCreateRequest": {
+            "type": "object",
+            "properties": {
+                "secret": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Secret"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.SecretCreateResponse": {
+            "type": "object",
+            "properties": {
+                "secret": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Secret"
+                    }
+                },
+                "uid": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.SecretListResponse": {
+            "type": "object",
+            "properties": {
+                "secrets": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.Secret"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.SecretType": {
+            "type": "string",
+            "enum": [
+                "aws",
+                "gcp",
+                "docker"
+            ],
+            "x-enum-varnames": [
+                "AWSSecretType",
+                "GCPSecretType",
+                "DockerSecretType"
+            ]
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.ServerResource": {
+            "type": "string",
+            "enum": [
+                "nvidia-tesla-t4-4c-16g",
+                "cpu-4c-16g",
+                "nvidia-ampere-a100-40g-12c-85g",
+                "nvidia-ada-l4-8c-32g",
+                "nvidia-ada-l4-4-48c-192g",
+                "nvidia-ada-l4-2-24c-96g"
+            ],
+            "x-enum-varnames": [
+                "ServerResourceGPUT44C16G",
+                "ServerResourceCPU4C16G",
+                "ServerResourceGPUA10040G12C85G",
+                "ServerResourceGPUL48C32G",
+                "ServerResourceGPU4L448C192G",
+                "ServerResourceGPU2L424C96G"
+            ]
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.ServerResourceInfo": {
+            "type": "object",
+            "properties": {
+                "cpu": {
+                    "type": "integer"
+                },
+                "gpu": {
+                    "type": "integer"
+                },
+                "gpu_memory": {
+                    "type": "integer"
+                },
+                "memory": {
+                    "type": "integer"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "price": {
+                    "type": "number"
+                },
+                "resource": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ServerResource"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.SpendLimit": {
+            "type": "object",
+            "properties": {
+                "limit": {
+                    "type": "number"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.SpendLimitHookRequest": {
+            "type": "object",
+            "properties": {
+                "current_value": {
+                    "type": "string"
+                },
+                "customer_id": {
+                    "type": "string"
+                },
+                "customer_name": {
+                    "type": "string"
+                },
+                "meter_id": {
+                    "type": "string"
+                },
+                "meter_name": {
+                    "type": "string"
+                },
+                "notification_id": {
+                    "type": "string"
+                },
+                "notification_name": {
+                    "type": "string"
+                },
+                "threshold_condition": {
+                    "type": "string"
+                },
+                "threshold_value": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TeamCreateRequest": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamSpec"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TeamListResponse": {
+            "type": "object",
+            "properties": {
+                "teams": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamSpec"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TeamMember": {
+            "type": "object",
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "role": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.MemberRole"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TeamMemberEditableFields": {
+            "type": "object",
+            "properties": {
+                "role": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.MemberRole"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TeamMemberRequest": {
+            "type": "object",
+            "required": [
+                "email"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string"
+                },
+                "member_id": {
+                    "type": "string"
+                },
+                "role": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.MemberRole"
+                },
+                "team_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TeamMemberResponse": {
+            "type": "object",
+            "properties": {
+                "member": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamMember"
+                },
+                "team_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TeamSpec": {
+            "type": "object",
+            "properties": {
+                "api_key": {
+                    "type": "string"
+                },
+                "avatar_url": {
+                    "description": "AvatarUrl is the avatar url of the team.",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "Email is the email of the team.",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "ID holds the unique identifier of the team.",
+                    "type": "string"
+                },
+                "members": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamMember"
+                    }
+                },
+                "name": {
+                    "description": "Name is the name of the team.",
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TeamUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "avatar_url": {
+                    "type": "string"
+                },
+                "members": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.TeamMemberEditableFields"
+                    }
+                },
+                "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.Template": {
+            "type": "object",
+            "properties": {
+                "command": {
+                    "type": "string"
+                },
+                "deployment_source": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentSource"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "env_vars": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "framework": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.FrameworkType"
+                },
+                "http_probe_path": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "readme": {
+                    "type": "string"
+                },
+                "repo": {
+                    "type": "string"
+                },
+                "server_source": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ServerResource"
+                },
+                "suggest_name": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TemplateCreateRequest": {
+            "type": "object",
+            "properties": {
+                "command": {
+                    "type": "string"
+                },
+                "deployment_source": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentSource"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "env_vars": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "framework": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.FrameworkType"
+                },
+                "http_probe_path": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "readme": {
+                    "type": "string"
+                },
+                "repo": {
+                    "type": "string"
+                },
+                "server_source": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ServerResource"
+                },
+                "suggest_name": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.TemplateUpdateRequest": {
+            "type": "object",
+            "properties": {
+                "command": {
+                    "type": "string"
+                },
+                "deployment_source": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.DeploymentSource"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "env_vars": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "framework": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.FrameworkType"
+                },
+                "http_probe_path": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "port": {
+                    "type": "integer"
+                },
+                "readme": {
+                    "type": "string"
+                },
+                "repo": {
+                    "type": "string"
+                },
+                "server_source": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.ServerResource"
+                },
+                "suggest_name": {
+                    "type": "string"
+                },
+                "tags": {
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.UserProfile": {
+            "type": "object",
+            "properties": {
+                "avatar_url": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.UserState": {
+            "type": "string",
+            "enum": [
+                "normal",
+                "past-due",
+                "suspended",
+                "spend-limit-exceeded",
+                "no-payment-method",
+                "in-white-list"
+            ],
+            "x-enum-varnames": [
+                "UserStateNormal",
+                "UserStatePastDue",
+                "UserStateSuspended",
+                "UserStateSpendLimitExceeded",
+                "UserStateNoPaymentMethod",
+                "UserStateInWhiteList"
+            ]
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.UserStatus": {
+            "type": "object",
+            "properties": {
+                "state": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.UserState"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.Version": {
+            "type": "object",
+            "properties": {
+                "agents": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.AgentVersionInfo"
+                    }
+                },
+                "version": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_api_types.VersionInfo"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_api_types.VersionInfo": {
+            "type": "object",
+            "properties": {
+                "build_date": {
+                    "type": "string"
+                },
+                "compiler": {
+                    "type": "string"
+                },
+                "git_commit": {
+                    "type": "string"
+                },
+                "git_tag": {
+                    "type": "string"
+                },
+                "git_tree_state": {
+                    "type": "string"
+                },
+                "go_version": {
+                    "type": "string"
+                },
+                "platform": {
+                    "type": "string"
+                },
+                "version": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_pkg_internal_types.Record": {
+            "type": "object",
+            "properties": {
+                "avatar_url": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "full_name": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                },
+                "website": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_pkg_internal_types.TableRecord": {
+            "type": "object",
+            "properties": {
+                "record": {
+                    "$ref": "#/definitions/github_com_tensorchord_modelz_apiserver_pkg_internal_types.Record"
+                },
+                "schema": {
+                    "type": "string"
+                },
+                "table": {
+                    "type": "string"
+                },
+                "team": {
+                    "type": "boolean"
+                },
+                "type": {
+                    "type": "string"
+                }
+            }
+        },
+        "github_com_tensorchord_modelz_apiserver_pkg_query.Template": {
+            "type": "object",
+            "properties": {
+                "command": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "created_at": {
+                    "type": "string"
+                },
+                "deployment_source": {
+                    "$ref": "#/definitions/pgtype.JSONB"
+                },
+                "description": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "env_vars": {
+                    "$ref": "#/definitions/pgtype.JSONB"
+                },
+                "framework": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "http_probe_path": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "image": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "is_public": {
+                    "$ref": "#/definitions/sql.NullBool"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "port": {
+                    "$ref": "#/definitions/sql.NullInt32"
+                },
+                "readme": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "repo": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "server_resource": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "suggest_name": {
+                    "$ref": "#/definitions/sql.NullString"
+                },
+                "tags": {
+                    "$ref": "#/definitions/pgtype.JSONB"
+                },
+                "updated_at": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "pgtype.JSONB": {
+            "type": "object",
+            "properties": {
+                "bytes": {
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                },
+                "status": {
+                    "$ref": "#/definitions/pgtype.Status"
+                }
+            }
+        },
+        "pgtype.Status": {
+            "type": "integer",
+            "enum": [
+                0,
+                1,
+                2
+            ],
+            "x-enum-varnames": [
+                "Undefined",
+                "Null",
+                "Present"
+            ]
+        },
+        "pkg_server.Error": {
+            "type": "object",
+            "properties": {
+                "error": {},
+                "http_status_code": {
+                    "description": "Machine-readable error code.",
+                    "type": "integer"
+                },
+                "message": {
+                    "description": "Human-readable message.",
+                    "type": "string"
+                },
+                "op": {
+                    "description": "Logical operation and nested error.",
+                    "type": "string"
+                },
+                "request": {
+                    "type": "string"
+                }
+            }
+        },
+        "sql.NullBool": {
+            "type": "object",
+            "properties": {
+                "bool": {
+                    "type": "boolean"
+                },
+                "valid": {
+                    "description": "Valid is true if Bool is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "sql.NullInt32": {
+            "type": "object",
+            "properties": {
+                "int32": {
+                    "type": "integer"
+                },
+                "valid": {
+                    "description": "Valid is true if Int32 is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "sql.NullString": {
+            "type": "object",
+            "properties": {
+                "string": {
+                    "type": "string"
+                },
+                "valid": {
+                    "description": "Valid is true if String is not NULL",
+                    "type": "boolean"
+                }
+            }
+        },
+        "types.AuthN": {
+            "type": "object",
+            "properties": {
+                "password": {
+                    "type": "string"
+                },
+                "token": {
+                    "type": "string"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.Build": {
+            "type": "object",
+            "properties": {
+                "spec": {
+                    "$ref": "#/definitions/types.BuildSpec"
+                },
+                "status": {
+                    "$ref": "#/definitions/types.BuildStatus"
+                }
+            }
+        },
+        "types.BuildPhase": {
+            "type": "string",
+            "enum": [
+                "Pending",
+                "Running",
+                "Succeeded",
+                "Failed"
+            ],
+            "x-enum-varnames": [
+                "BuildPhasePending",
+                "BuildPhaseRunning",
+                "BuildPhaseSucceeded",
+                "BuildPhaseFailed"
+            ]
+        },
+        "types.BuildSpec": {
+            "type": "object",
+            "properties": {
+                "authn": {
+                    "$ref": "#/definitions/types.AuthN"
+                },
+                "branch": {
+                    "type": "string"
+                },
+                "buildTarget": {
+                    "$ref": "#/definitions/types.BuildTarget"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "image_tag": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "namespace": {
+                    "type": "string"
+                },
+                "repository": {
+                    "description": "repository is the URL",
+                    "type": "string"
+                },
+                "revision": {
+                    "description": "revision is the commit hash for the specified revision.\n+optional",
+                    "type": "string"
+                },
+                "secret_id": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.BuildStatus": {
+            "type": "object",
+            "properties": {
+                "phase": {
+                    "$ref": "#/definitions/types.BuildPhase"
+                }
+            }
+        },
+        "types.BuildTarget": {
+            "type": "object",
+            "properties": {
+                "builder": {
+                    "$ref": "#/definitions/types.BuilderType"
+                },
+                "digest": {
+                    "type": "string"
+                },
+                "directory": {
+                    "description": "directory is the target directory name.\nMust not contain or start with '..'.  If '.' is supplied, the volume directory will be the\ngit repository.  Otherwise, if specified, the volume will contain the git repository in\nthe subdirectory with the given name.\n+optional",
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "string"
+                },
+                "image": {
+                    "type": "string"
+                },
+                "image_tag": {
+                    "type": "string"
+                },
+                "registry": {
+                    "type": "string"
+                },
+                "registry_token": {
+                    "type": "string"
+                }
+            }
+        },
+        "types.BuilderType": {
+            "type": "string",
+            "enum": [
+                "Dockerfile",
+                "envd",
+                "image"
+            ],
+            "x-enum-varnames": [
+                "BuilderTypeDockerfile",
+                "BuilderTypeENVD",
+                "BuilderTypeImage"
+            ]
+        }
+    },
+    "securityDefinitions": {
+        "ApiKeyAuth": {
+            "description": "Description for what is this security definition being used",
+            "type": "apiKey",
+            "name": "X-API-Key",
+            "in": "header"
+        },
+        "Authentication": {
+            "type": "apiKey",
+            "name": "JWT",
+            "in": "header"
+        }
+    }
+}

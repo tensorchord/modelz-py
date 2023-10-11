@@ -7,8 +7,5 @@ Python SDK interface
 .. autoclass:: modelz.client.ModelzResponse
    :members:
 
-.. autofunction:: modelz.cmd.inference
-   :noindex:
-
-.. autofunction:: modelz.cmd.metrics
-   :noindex:
+.. autoclass:: modelz.openapi_client.DeploymentClient
+   :members:

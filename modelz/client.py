@@ -64,24 +64,21 @@ class ModelzResponse:
 
 
 class ModelzClient:
-    """Create a Modelz Client.
+    """Create a Modelz Client for standalone commands.
 
     Args:
-        deployment: deployment ID
+        endpoint: endpoint URL
         key: API key
-        host: Modelz host address
         timeout: request timeout (second)
     """
 
     def __init__(
         self,
-        deployment: str | None = None,
         key: str | None = None,
-        host: str | None = None,
+        endpoint: str | None = None,
         timeout: float | httpx.Timeout = TIMEOUT,
     ) -> None:
-        self.host = host if host else config.host
-        self.deployment = deployment
+        self.endpoint = endpoint
         auth = ModelzAuth(key)
         transport = httpx.HTTPTransport(retries=DEFAULT_RETRY)
         self.client = httpx.Client(auth=auth, transport=transport)
@@ -91,23 +88,19 @@ class ModelzClient:
     def inference(
         self,
         params: Any,
-        deployment: str | None = None,
         serde: str = "json",
     ) -> ModelzResponse:
         """Get the inference result.
 
         Args:
             params: request params, will be serialized by ``serde``
-            deployment: deployment ID
             serde: serialize/deserialize method, choose from ("json", "msgpack", "raw")
         """
-        deploy = deployment if deployment else self.deployment
-        assert deploy, "deployment is required"
         self.serde = SerdeEnum[serde.lower()].value()
 
-        with console.status(f"[bold green]Modelz {deploy} inference..."):
+        with console.status(f"[bold green]Modelz {self.endpoint} inference..."):
             resp = self.client.post(
-                urljoin(self.host.format(deploy), "/inference"),
+                urljoin(self.endpoint, "/inference"),
                 content=self.serde.encode(params),
                 timeout=self.timeout,
             )

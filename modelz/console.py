@@ -1,8 +1,10 @@
+import json
 import re
 
 from rich.console import Console
 
 from modelz.env import EnvConfig
+from openapi.sdk.types import Response
 
 config = EnvConfig()
 
@@ -30,3 +32,11 @@ class ModelzConsole:
 
 
 console = ModelzConsole() if config.disable_rich else Console()
+
+
+def jsonFormattedPrint(resp: Response):
+    if hasattr(resp.parsed, "to_dict") and callable(resp.parsed.to_dict):
+        formatted = json.dumps(resp.parsed.to_dict(), indent=2)
+    else:
+        formatted = resp.content.decode(errors="ignore")
+    console.print(formatted)
