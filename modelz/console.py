@@ -31,8 +31,7 @@ class ModelzConsole:
 
 console = (
     ModelzConsole()
-    if os.environ.get("MODELZ_DISABLE_RICH")
-    and os.environ.get("MODELZ_DISABLE_RICH").lower() == "true"
+    if os.environ.get("MODELZ_DISABLE_RICH", "").lower() == "true"
     else Console()
 )
 

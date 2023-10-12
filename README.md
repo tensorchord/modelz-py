@@ -86,7 +86,7 @@ The result might be something like:
 ```
 
 #### Step 2: Get Inference Endpoint
-After a some time, you could get endpoint of deployment from `list` command.
+After a while, you could get endpoint of deployment from `list` command.
 ```shell
 modelz deployment list -k mzi-1234567890987654321 -u 00000000-1111-1111-1111-000000000000
 ```
@@ -171,7 +171,7 @@ modelz_user_id = "00000000-1111-1111-1111-000000000000"
 modelz_api_key = "mzi-1234567890987654321"
 
 # Create client to operate deployments
-client = DeploymentClient(login_name=modelz_user_id, key=modelz_api_key, host="https://cloud.modelz.dev/api/v1")
+client = DeploymentClient(login_name=modelz_user_id, key=modelz_api_key)
 
 # Step 1: Create deployment
 spec = DeploymentSpec(
