@@ -7,8 +7,8 @@ from typing import Any, Dict, List, TypedDict
 
 from jsonpath_ng import parse
 
-docPath = join(dirname(dirname(__file__)), "openapi", "swagger_v3.json")
-outPath = join(dirname(dirname(__file__)), "openapi", "swagger_fix.json")
+docPath = join(dirname(dirname(__file__)), "modelz/openapi", "swagger_v3.json")
+outPath = join(dirname(dirname(__file__)), "modelz/openapi", "swagger_fix.json")
 
 
 RefDict = TypedDict("AllOfDict", {"$ref": str})

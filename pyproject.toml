@@ -62,8 +62,8 @@ generate = [
     "openapi-python-client>=0.15.2"
 ]
 [tool.pdm.build]
-includes = ["modelz/", "openapi/"]
-excludes = ["docs/", "hack/", "openapi/swagger*","tests/"]
+includes = ["modelz/"]
+excludes = ["docs/", "hack/", "modelz/openapi/swagger*","tests/"]
 
 [tool.ruff]
 line-length = 88

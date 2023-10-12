@@ -7,18 +7,16 @@ from urllib.parse import urljoin
 import httpx
 
 from modelz.console import console
-from modelz.env import EnvConfig
 from modelz.serde import Serde, SerdeEnum, TextSerde
 
 TIMEOUT = httpx.Timeout(5, read=300, write=300)
-config = EnvConfig()
 DEFAULT_RESP_SERDE = TextSerde()
 DEFAULT_RETRY = 3
 
 
 class ModelzAuth(httpx.Auth):
-    def __init__(self, key: str | None = None) -> None:
-        self.key: str = key if key else config.api_key
+    def __init__(self, key: str) -> None:
+        self.key: str = key
         if not self.key:
             raise RuntimeError("cannot find the API key")
 
@@ -74,7 +72,7 @@ class ModelzClient:
 
     def __init__(
         self,
-        key: str | None = None,
+        key: str,
         endpoint: str | None = None,
         timeout: float | httpx.Timeout = TIMEOUT,
     ) -> None:

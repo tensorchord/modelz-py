@@ -17,6 +17,7 @@ class ManagedCluster:
         kubernetes_version (Union[Unset, str]):
         name (Union[Unset, str]): For show name
         platform (Union[Unset, str]):
+        prometheus_url (Union[Unset, str]):
         region (Union[Unset, str]):
         server_resources (Union[Unset, str]):
         status (Union[Unset, str]):
@@ -30,6 +31,7 @@ class ManagedCluster:
     kubernetes_version: Union[Unset, str] = UNSET
     name: Union[Unset, str] = UNSET
     platform: Union[Unset, str] = UNSET
+    prometheus_url: Union[Unset, str] = UNSET
     region: Union[Unset, str] = UNSET
     server_resources: Union[Unset, str] = UNSET
     status: Union[Unset, str] = UNSET
@@ -44,6 +46,7 @@ class ManagedCluster:
         kubernetes_version = self.kubernetes_version
         name = self.name
         platform = self.platform
+        prometheus_url = self.prometheus_url
         region = self.region
         server_resources = self.server_resources
         status = self.status
@@ -64,6 +67,8 @@ class ManagedCluster:
             field_dict["name"] = name
         if platform is not UNSET:
             field_dict["platform"] = platform
+        if prometheus_url is not UNSET:
+            field_dict["prometheus_url"] = prometheus_url
         if region is not UNSET:
             field_dict["region"] = region
         if server_resources is not UNSET:
@@ -92,6 +97,8 @@ class ManagedCluster:
 
         platform = d.pop("platform", UNSET)
 
+        prometheus_url = d.pop("prometheus_url", UNSET)
+
         region = d.pop("region", UNSET)
 
         server_resources = d.pop("server_resources", UNSET)
@@ -110,6 +117,7 @@ class ManagedCluster:
             kubernetes_version=kubernetes_version,
             name=name,
             platform=platform,
+            prometheus_url=prometheus_url,
             region=region,
             server_resources=server_resources,
             status=status,

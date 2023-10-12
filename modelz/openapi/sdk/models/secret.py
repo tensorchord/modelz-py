@@ -20,19 +20,23 @@ class Secret:
     """
     Attributes:
         aws (Union[Unset, AWSSecret]):
+        created_at (Union[Unset, str]):
         docker (Union[Unset, DockerSecret]):
         gcp (Union[Unset, GCPSecret]):
         id (Union[Unset, str]):
         name (Union[Unset, str]):
         type (Union[Unset, SecretType]):
+        updated_at (Union[Unset, str]):
     """
 
     aws: Union[Unset, "AWSSecret"] = UNSET
+    created_at: Union[Unset, str] = UNSET
     docker: Union[Unset, "DockerSecret"] = UNSET
     gcp: Union[Unset, "GCPSecret"] = UNSET
     id: Union[Unset, str] = UNSET
     name: Union[Unset, str] = UNSET
     type: Union[Unset, SecretType] = UNSET
+    updated_at: Union[Unset, str] = UNSET
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> Dict[str, Any]:
@@ -40,6 +44,7 @@ class Secret:
         if not isinstance(self.aws, Unset):
             aws = self.aws.to_dict()
 
+        created_at = self.created_at
         docker: Union[Unset, Dict[str, Any]] = UNSET
         if not isinstance(self.docker, Unset):
             docker = self.docker.to_dict()
@@ -54,11 +59,15 @@ class Secret:
         if not isinstance(self.type, Unset):
             type = self.type.value
 
+        updated_at = self.updated_at
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if aws is not UNSET:
             field_dict["aws"] = aws
+        if created_at is not UNSET:
+            field_dict["created_at"] = created_at
         if docker is not UNSET:
             field_dict["docker"] = docker
         if gcp is not UNSET:
@@ -69,6 +78,8 @@ class Secret:
             field_dict["name"] = name
         if type is not UNSET:
             field_dict["type"] = type
+        if updated_at is not UNSET:
+            field_dict["updated_at"] = updated_at
 
         return field_dict
 
@@ -85,6 +96,8 @@ class Secret:
             aws = UNSET
         else:
             aws = AWSSecret.from_dict(_aws)
+
+        created_at = d.pop("created_at", UNSET)
 
         _docker = d.pop("docker", UNSET)
         docker: Union[Unset, DockerSecret]
@@ -111,13 +124,17 @@ class Secret:
         else:
             type = SecretType(_type)
 
+        updated_at = d.pop("updated_at", UNSET)
+
         secret = cls(
             aws=aws,
+            created_at=created_at,
             docker=docker,
             gcp=gcp,
             id=id,
             name=name,
             type=type,
+            updated_at=updated_at,
         )
 
         secret.additional_properties = d

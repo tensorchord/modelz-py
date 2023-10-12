@@ -6,7 +6,7 @@ MODELZ_VERSION?=main
 build:
 	@pdm build
 
-build-local: build
+build-local:
 	@pip install -e .
 
 lint:
@@ -32,27 +32,27 @@ docs-dev: docs
 
 # Only maintainers of ModelZ could run this command!
 # These files are generated:
-# - openapi/swagger.json
+# - modelz/openapi/swagger.json
 openapi-sync:
 	@git clone --depth=1 git@github.com:tensorchord/modelz.git --branch ${MODELZ_VERSION} tmp
-	@cp tmp/apiserver/pkg/docs/swagger.json openapi/swagger.json
+	@cp tmp/apiserver/pkg/docs/swagger.json modelz/openapi/swagger.json
 	@rm -rf tmp
 
 # TODO(junyuchen): Move to generated v3.0 OpenAPI doc when swag supports it
 # https://github.com/swaggo/swag/issues/386 and remove convert and pre-fix
 
 # These files are generated:
-# - openapi/swagger_v3.json
-# - openapi/swagger_fix.json
-# - openapi/sdk/*
+# - modelz/openapi/swagger_v3.json
+# - modelz/openapi/swagger_fix.json
+# - modelz/openapi/sdk/*
 generate:
 	@curl -X 'POST' https://converter.swagger.io/api/convert \
 	-H 'Content-Type: application/json' \
 	-H 'Accept: application/json' \
-	-d @openapi/swagger.json | jq > openapi/swagger_v3.json
+	-d @modelz/openapi/swagger.json | jq > modelz/openapi/swagger_v3.json
 	@python hack/fix_swag.py
-	@rm -rf openapi/sdk
-	@cd openapi && openapi-python-client generate --path swagger_fix.json \
-	--meta none --config ../hack/openapi-python-client.yaml
+	@rm -rf modelz/openapi/sdk
+	@cd modelz/openapi && openapi-python-client generate --path swagger_fix.json \
+	--meta none --config ../../hack/openapi-python-client.yaml
 
 .PHONY: build lint format test docs openapi-sync generate

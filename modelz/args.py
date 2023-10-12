@@ -6,16 +6,18 @@ import click
 
 from modelz.client import ModelzClient
 from modelz.console import console, jsonFormattedPrint
+from modelz.openapi.sdk.models import (
+    DeploymentCreateRequest,
+    DeploymentDockerSource,
+    DeploymentSource,
+    DeploymentSpec,
+    DeploymentSpecEnvVars,
+    DeploymentUpdateRequest,
+    FrameworkType,
+    ServerResource,
+)
+from modelz.openapi.sdk.types import UNSET
 from modelz.openapi_client import DeploymentClient
-from openapi.sdk.models.deployment_create_request import DeploymentCreateRequest
-from openapi.sdk.models.deployment_docker_source import DeploymentDockerSource
-from openapi.sdk.models.deployment_source import DeploymentSource
-from openapi.sdk.models.deployment_spec import DeploymentSpec
-from openapi.sdk.models.deployment_spec_env_vars import DeploymentSpecEnvVars
-from openapi.sdk.models.deployment_update_request import DeploymentUpdateRequest
-from openapi.sdk.models.framework_type import FrameworkType
-from openapi.sdk.models.server_resource import ServerResource
-from openapi.sdk.types import UNSET
 
 click_option_host = click.option(
     "--host",
@@ -292,6 +294,19 @@ def deployment_create(  # noqa PLR0913
 def deployment_list(host: str, user_id: str, key: str):
     client = DeploymentClient(login_name=user_id, key=key, host=host)
     resp = client.list()
+    jsonFormattedPrint(resp)
+
+
+@deployment.command(
+    name="get", context_settings={"help_option_names": ["-h", "--help"]}
+)
+@click_option_host
+@click_option_user_id
+@click_option_key
+@click_option_deployment
+def deployment_get(host: str, user_id: str, key: str, deployment: str):
+    client = DeploymentClient(login_name=user_id, key=key, host=host)
+    resp = client.get(deployment)
     jsonFormattedPrint(resp)
 
 

@@ -41,7 +41,7 @@ jobs:
         pdm run lint --exclude openapi
     - name: Verify OpenAPI generate
       run: |
-        pdm run generate && git add openapi &&
+        pdm run generate && git add modelz/openapi &&
         git diff --cached --exit-code || (echo 'Please run "make generate" to verify generate' && exit 1)
     - name: Verify docs generate
       run: |
