@@ -1,22 +1,17 @@
 from gradio_client import Client
 
-from modelz.env import EnvConfig
-
-config = EnvConfig()
-
 
 class GradioClient:
     """Create a Gradio Client with Modelz endpoints.
     Args:
-        host: Modelz host address
+        endpoint: endpoint URL
     """
 
     def __init__(
         self,
-        host: str = None,
+        endpoint: str = None,
     ) -> None:
-        self.host = host if host else config.host
-        self._client = Client(self.host)
+        self._client = Client(endpoint)
 
     def __getattr__(self, attr):
         """Delegate access to implement the composition."""

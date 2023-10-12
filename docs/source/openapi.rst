@@ -1,5 +1,5 @@
 OpenAPI DataClass
 ====================================
 
-.. automodule:: openapi.sdk.models
+.. automodule:: modelz.openapi.sdk.models
    :members:

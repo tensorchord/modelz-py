@@ -7,20 +7,23 @@ from click.testing import CliRunner, Result
 from modelz.args import (
     deployment_create,
     deployment_delete,
+    deployment_get,
     deployment_list,
     deployment_update,
 )
-from openapi.sdk.models.deployment_create_request import DeploymentCreateRequest
-from openapi.sdk.models.deployment_docker_source import DeploymentDockerSource
-from openapi.sdk.models.deployment_list_response import DeploymentListResponse
-from openapi.sdk.models.deployment_response import DeploymentResponse
-from openapi.sdk.models.deployment_source import DeploymentSource
-from openapi.sdk.models.deployment_spec import DeploymentSpec
-from openapi.sdk.models.deployment_spec_env_vars import DeploymentSpecEnvVars
-from openapi.sdk.models.deployment_update_request import DeploymentUpdateRequest
-from openapi.sdk.models.framework_type import FrameworkType
-from openapi.sdk.models.server_resource import ServerResource
-from openapi.sdk.types import UNSET, Response
+from modelz.openapi.sdk.models import (
+    DeploymentCreateRequest,
+    DeploymentDockerSource,
+    DeploymentListResponse,
+    DeploymentResponse,
+    DeploymentSource,
+    DeploymentSpec,
+    DeploymentSpecEnvVars,
+    DeploymentUpdateRequest,
+    FrameworkType,
+    ServerResource,
+)
+from modelz.openapi.sdk.types import UNSET, Response
 
 
 @pytest.mark.parametrize(
@@ -177,6 +180,33 @@ def test_deployment_list(name, args):
         runner = CliRunner()
         result = runner.invoke(deployment_list, args)
         logging.error("Exit code was not null!", exc_info=result.exc_info)
+        assertResult(result)
+        mock_func.assert_called_once()
+
+
+@pytest.mark.parametrize(
+    "name, args",
+    [
+        (
+            "basic",
+            [
+                "-u",
+                "00000000-1111-1111-1111-000000000000",
+                "-k",
+                "testkey",
+                "-d",
+                "modelz-abc",
+            ],
+        ),
+    ],
+)
+def test_deployment_get(name, args):
+    with patch("modelz.openapi_client.DeploymentClient.get") as mock_func:
+        mock_func.return_value = Response(
+            status_code=200, content=b"", headers={}, parsed=None
+        )
+        runner = CliRunner()
+        result = runner.invoke(deployment_get, args)
         assertResult(result)
         mock_func.assert_called_once()
 

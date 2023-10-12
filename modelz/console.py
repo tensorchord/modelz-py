@@ -1,12 +1,10 @@
 import json
+import os
 import re
 
 from rich.console import Console
 
-from modelz.env import EnvConfig
-from openapi.sdk.types import Response
-
-config = EnvConfig()
+from modelz.openapi.sdk.types import Response
 
 
 class ModelzConsole:
@@ -31,7 +29,12 @@ class ModelzConsole:
         print(self.formatter(msg))
 
 
-console = ModelzConsole() if config.disable_rich else Console()
+console = (
+    ModelzConsole()
+    if os.environ.get("MODELZ_DISABLE_RICH")
+    and os.environ.get("MODELZ_DISABLE_RICH").lower() == "true"
+    else Console()
+)
 
 
 def jsonFormattedPrint(resp: Response):
